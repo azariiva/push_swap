@@ -1,5 +1,11 @@
 {
     "files.associations": {
         "libft.h": "c"
-    }
+    },
+    "editor.rulers": [80],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4040"
+    },
+    "42header.username": "blinnea",
+    "42header.email": "blinnea@student.42.fr",
 }

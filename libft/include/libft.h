@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:09:17 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/11 18:35:25 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/11 23:47:26 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,36 @@ void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 ** f. If the allocation fails, the function returns NULL.
 */
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+/*
+** Swaps top two elements of the list. Does nothing if there are one or less
+** elements in the list.
+*/
+void			ft_lstswptop(t_list **lst);
+/*
+** Pops first element of the list. If the first element is unreachable returns
+** NULL.
+*/
+t_list			*ft_lstpoptop(t_list **lst);
+/*
+** Pops last element of the list. If the last element is unreachable returns
+** NULL.
+*/
+t_list			*ft_lstpopbot(t_list **lst);
+/*
+** Takes the first element at the top of src and put it at the top of dst. Do
+** nothing if src is empty.
+*/
+void			ft_lsttrans(t_list **dst, t_list **src);
+/*
+** Shifts up all elements of list a by 1. The first element becomes the last
+** one.
+*/
+void			ft_lstshftup(t_list **lst);
+/*
+** Shifts down all elements of list a by 1. The last element becomes the first
+** one.
+*/
+void			ft_lstshftdown(t_list **lst);
 
 /*
 ** Additional functions

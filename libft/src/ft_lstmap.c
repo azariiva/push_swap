@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 20:57:37 by blinnea           #+#    #+#             */
-/*   Updated: 2019/09/21 12:43:30 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/11 22:29:11 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	if (!lst)
 		return (NULL);
 	next = lst->next;
-	head = f(lst);
+	if (!(head = f(lst)))
+		return (NULL);
 	lst = next;
 	ptr = head;
 	while (lst && ptr)
