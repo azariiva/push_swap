@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstdelone_ic.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/04 16:09:17 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/11 16:04:23 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/11 18:16:30 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/11 18:17:06 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putchar_fd(char c, int fd)
+void			ft_lstdelone_ic(t_list **alst)
 {
-	unsigned char	uc;
-
-	uc = (unsigned char)c;
-	if (write(fd, &uc, sizeof(uc)) == sizeof(uc))
-		return (c);
-	else
-		return (EOF);
+    free(*alst);
+    *alst = NULL;
 }

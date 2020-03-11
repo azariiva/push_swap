@@ -15,12 +15,9 @@ LIBFT_PATH = ./libft
 
 libft:
 	@make -C $(LIBFT_PATH)
-	@cp -u $(LIBFT_PATH)/libft.a .
+	@cp $(LIBFT_PATH)/libft.a ./libft.a
 
-all: checker.out
-	
-checker.out: libft checker.c
-	@$(CC) $(CF) checker.c -o checker.out -L. -lft
+all: libft
 
 clean:
 	@make $@ -C $(LIBFT_PATH)
@@ -28,6 +25,5 @@ clean:
 
 fclean: clean
 	@make $@ -C $(LIBFT_PATH)
-	@rm -f checker.out
 
 re: clean all

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: blinnea <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 17:37:07 by blinnea           #+#    #+#              #
-#    Updated: 2019/09/21 14:55:59 by blinnea          ###   ########.fr        #
+#    Updated: 2020/03/11 18:18:44 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ LIBFT_FUNCS = ft_memset ft_memdel ft_strnew ft_strdel ft_strclr ft_striter \
 			  ft_putendl ft_putnbr ft_abs ft_putchar_fd ft_putstr_fd \
 			  ft_putendl_fd ft_putnbr_fd ft_lstnew ft_lstdelone ft_lstdel \
 			  ft_memcmp ft_lstadd ft_lstiter ft_lstmap ft_isblank ft_iscntrl \
-			  ft_isgraph ft_isspace ft_ispunct ft_isxdigit
-
+			  ft_isgraph ft_isspace ft_ispunct ft_isxdigit ft_labs ft_llabs \
+			  ft_lstdelone_ic ft_lstdel_ic
 # object files
 LIBFT_O_FILES =  $(patsubst %, $(OBJS)/%.o, $(LIBFT_FUNCS))
 

@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:09:17 by blinnea           #+#    #+#             */
-/*   Updated: 2019/09/15 20:45:45 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/11 17:24:18 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_help_putnbr_fd(int n, int fd)
+int		ft_putnbr_fd(int n, int fd)
 {
-	if (n != 0)
-	{
-		ft_help_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + '0', fd);
-	}
-}
+	char	buf[21];
+	char	*ptr;
+	int		negative;
+	ssize_t	written;
 
-void		ft_putnbr_fd(int n, int fd)
-{
-	if (n == 0)
-		ft_putchar_fd('0', fd);
-	if (n < 0)
-		ft_putchar_fd('-', fd);
-	ft_help_putnbr_fd(ft_abs(n / 10), fd);
-	ft_putchar_fd(ft_abs(n % 10) + '0', fd);
+	ptr = buf + 20;
+	negative = (n < 0 ? 1 : 0);
+	*ptr-- = ft_abs(n % 10) + '0';
+	n = ft_abs(n / 10);
+	while (n)
+	{
+		*ptr-- = n % 10 + '0';
+		n /= 10;
+	}
+	if (negative)
+		*ptr-- = '-';
+	if ((written = write(fd, ptr + 1, 20 - (ptr - buf))) == -1)
+		return (EOF);
+	else
+		return (written);
 }

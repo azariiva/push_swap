@@ -29,7 +29,7 @@ int		ft_atoi(char const *str)
 	else if (*str == '+')
 		++str;
 	result = 0;
-	while (*str >= '0' && *str <= '9')
+	while (ft_isdigit(*str))
 	{
 		result = result * 10 + (int)*str++ - '0';
 		if (result > 9223372036854775807)

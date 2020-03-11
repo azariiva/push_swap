@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 20:43:50 by blinnea           #+#    #+#             */
-/*   Updated: 2019/09/15 20:44:03 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/11 17:06:01 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl(char const *s)
+int	ft_putendl(char const *s)
 {
-	ft_putendl_fd(s, STDOUT_FILENO);
+	return (ft_putendl_fd(s, STDOUT_FILENO));
 }
