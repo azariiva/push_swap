@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 18:45:54 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 00:36:45 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/12 01:19:20 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,10 @@ int		ps_procui(t_list **a, t_list **b)
 		else
 		{
 			// TODO: try to clear fdlist from get_next_line
+			/*
 			ft_putstr_fd("Error in line: ",STDERR_FILENO);
 			ft_putendl(line);
+			*/
 			ft_strdel(&line);
 			return (-1);
 		}

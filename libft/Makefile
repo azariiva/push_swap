@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 17:37:07 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/12 01:00:16 by blinnea          ###   ########.fr        #
+#    Updated: 2020/03/12 01:20:02 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ clean:
 	rm -f $(OFILES)
 
 fclean: clean
-	rm -d obj
+	rm -fd obj
 	rm -f $(NAME).a
 
 re: clean all

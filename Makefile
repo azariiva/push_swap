@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/12 01:07:06 by blinnea          ###   ########.fr        #
+#    Updated: 2020/03/12 01:18:17 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,33 +20,40 @@ LFT_HEADER = $(LFT)/include/$(LFT).h
 LFT_SLIB = $(LFT)/$(LFT).a
 
 # function names
-FILES = checker
+CHFILES = checker
 
 # object files
-OFILES = $(patsubst %, obj/%.o, $(FILES))
+CHOFILES = $(patsubst %, obj/checker/%.o, $(CHFILES))
+PSOFILES = $(patsubst %, obj/push_swap/%.o, $(PSFILES))
 
 .PHONY: clean $(LFT) fclean re all
 
-all: $(OFILES) $(GNL)/$(GNL).o $(LFT)
-	gcc $(OFILES) $(GNL)/$(GNL).o -L$(LFT) -lft -o checker
+all: checker push_swap
+
+checker: $(CHOFILES) $(GNL)/$(GNL).o $(LFT)
+	gcc $(CHOFILES) $(GNL)/$(GNL).o -L$(LFT) -lft -o checker
+
+push_swap: $(PSOFILES) $(LFT)
 
 $(LFT):
 	make -C $(LFT)
 
-$(GNL)/$(GNL).o: $(GNL)/$(GNL).c $(GNL)/$(GNL).h $(LFT_HEADER) $(LFT)
-	$(CC) $(CF) -c $< -o $@ -I $(GNL) -I $(LFT)/include \
-	-L$(LFT) -lft
-
-obj/%.o: src/%.c $(LFT_HEADER)
-	mkdir -p obj
+$(GNL)/$(GNL).o: $(GNL)/$(GNL).c $(GNL)/$(GNL).h $(LFT_HEADER)
 	$(CC) $(CF) -c $< -o $@ -I $(GNL) -I $(LFT)/include
+
+obj/checker/%.o: src/%.c $(LFT_HEADER)
+	mkdir -p obj/checker
+	$(CC) $(CF) -c $< -o $@ -I $(GNL) -I $(LFT)/include
+
+obj/push_swap/%.o: src/%.c $(LFT_HEADER)
+	$(CC) $(CF) -c $< -o $@ -I $(LFT)/include
 
 clean:
 	make fclean -C $(LFT)
 	rm -f $(GNL)/$(GNL).o
-	rm -f $(OFILES)
+	rm -f $(CHOFILES) $(PSOFILES)
 
 fclean: clean
-	rm -f checker
+	rm -f checker push_swap
 
 re: clean all
