@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_labs.c                                          :+:      :+:    :+:   */
+/*   ft_isxdigit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:52:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:00 by blinnea          ###   ########.fr       */
+/*   Created: 2019/09/04 16:09:17 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/12 20:06:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_labs(long i)
+#include "libft_ctype.h"
+
+int	ft_isxdigit(int c)
 {
-	return (i < 0 ? -i : i);
+	c = ft_tolower(c);
+	return (ft_isdigit(c) || ('a' <= c && c <= 'f'));
 }

@@ -6,11 +6,11 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 17:06:34 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/11 17:06:47 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/12 16:20:42 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long long   ft_labs(long long i)
+long long	ft_llabs(long long i)
 {
-    return (i < 0 ? -i : i);
+	return (i < 0 ? -i : i);
 }

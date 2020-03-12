@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_labs.c                                          :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:52:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:00 by blinnea          ###   ########.fr       */
+/*   Created: 2019/09/15 20:43:50 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/12 20:20:55 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_labs(long i)
+#include "libft_io.h"
+
+int	ft_putendl(char const *s)
 {
-	return (i < 0 ? -i : i);
+	return (ft_putendl_fd(s, STDOUT_FILENO));
 }

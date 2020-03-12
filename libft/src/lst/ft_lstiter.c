@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_labs.c                                          :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:52:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:00 by blinnea          ###   ########.fr       */
+/*   Created: 2019/09/15 20:54:55 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/12 20:26:08 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_labs(long i)
+#include "libft_list.h"
+
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	return (i < 0 ? -i : i);
+	t_list	*next;
+
+	while (lst)
+	{
+		next = lst->next;
+		f(lst);
+		lst = next;
+	}
 }

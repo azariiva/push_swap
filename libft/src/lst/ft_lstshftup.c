@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_labs.c                                          :+:      :+:    :+:   */
+/*   ft_lstshftup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:52:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:00 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/11 22:44:45 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/12 20:26:48 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_labs(long i)
+#include "libft_list.h"
+
+void	ft_lstshftup(t_list **lst)
 {
-	return (i < 0 ? -i : i);
+	t_list	*head;
+	t_list	*iter;
+
+	head = ft_lstpoptop(lst);
+	iter = *lst;
+	while (iter->next)
+		iter = iter->next;
+	iter->next = head;
 }

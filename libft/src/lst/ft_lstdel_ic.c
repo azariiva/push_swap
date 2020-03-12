@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_labs.c                                          :+:      :+:    :+:   */
+/*   ft_lstdel_ic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:52:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:00 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/11 18:19:01 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/12 20:25:55 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_labs(long i)
+#include "libft_list.h"
+
+void	ft_lstdel_ic(t_list **alst)
 {
-	return (i < 0 ? -i : i);
+	t_list	*ptr;
+	t_list	*todel;
+
+	ptr = *alst;
+	while (ptr)
+	{
+		todel = ptr;
+		ptr = ptr->next;
+		ft_lstdelone_ic(&todel);
+	}
+	*alst = NULL;
 }

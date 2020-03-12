@@ -6,54 +6,82 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/12 01:18:17 by blinnea          ###   ########.fr        #
+#    Updated: 2020/03/12 21:35:12 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-CF = -Wall -Wextra -Werror
+# **************************************************************************** #
+#                                 COLOURS                                      #
+# **************************************************************************** #
+DEFAULT =	\033[0m
+YELLOW =	\033[1;33m
+GREEN =		\033[1;32m
+RED =		\033[1;31m
+GREENB =	\033[42m
 
-GNL = get_next_line
-LFT = libft
+# **************************************************************************** #
+#                               COMPILER OPTIONS                               #
+# **************************************************************************** #
+CC =		gcc
+CF =		-Wall -Wextra -Werror
 
-LFT_HEADER = $(LFT)/include/$(LFT).h
-LFT_SLIB = $(LFT)/$(LFT).a
+# **************************************************************************** #
+#                               ABBREVIATIONS                                  #
+# **************************************************************************** #
+GNL =		get_next_line
+LFT =		libft
+LPS =		libps
 
-# function names
-CHFILES = checker
+# **************************************************************************** #
+#                                 HEADERS                                      #
+# **************************************************************************** #
+GNL_H =		$(GNL)/$(GNL).h
+LFT_H =		$(LFT)/include/$(LFT).h
+LPS_H =		include/$(LPS).h
 
-# object files
-CHOFILES = $(patsubst %, obj/checker/%.o, $(CHFILES))
-PSOFILES = $(patsubst %, obj/push_swap/%.o, $(PSFILES))
+# **************************************************************************** #
+#                                 FILENAMES                                    #
+# **************************************************************************** #
+PSFILES =	ps_atoi ps_chcklst ps_crtlst ps_procui
+PSOFILES =	$(patsubst %, obj/libps/%.o, $(PSFILES))
+GNL_C =		$(GNL)/$(GNL).c
+GNL_O =		$(GNL)/$(GNL).o
 
-.PHONY: clean $(LFT) fclean re all
+.PHONY:	fclean_$(LFT) $(LFT) clean fclean re all
 
-all: checker push_swap
+all: checker
 
-checker: $(CHOFILES) $(GNL)/$(GNL).o $(LFT)
-	gcc $(CHOFILES) $(GNL)/$(GNL).o -L$(LFT) -lft -o checker
+obj:
+	@mkdir -pv obj
+	@mkdir -pv obj/libps
 
-push_swap: $(PSOFILES) $(LFT)
+checker: src/checker.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES)
+	@gcc $< $(GNL_C) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
+	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
+
+push_swap: src/push_swap.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES)
+	@$(CC) $(CF) -c $< -o obj/$@.o -I $(LFT)/include -I include
+	@gcc obj/$@.o $(LPSOFILES) -L$(LFT) -lft -o $@
+	@echo "> $(GREEN)$@ created$(DEFAULT)"
 
 $(LFT):
-	make -C $(LFT)
+	@make all -C $(LFT)
 
-$(GNL)/$(GNL).o: $(GNL)/$(GNL).c $(GNL)/$(GNL).h $(LFT_HEADER)
-	$(CC) $(CF) -c $< -o $@ -I $(GNL) -I $(LFT)/include
+fclean_$(LFT):
+	@make fclean -C $(LFT)
 
-obj/checker/%.o: src/%.c $(LFT_HEADER)
-	mkdir -p obj/checker
-	$(CC) $(CF) -c $< -o $@ -I $(GNL) -I $(LFT)/include
-
-obj/push_swap/%.o: src/%.c $(LFT_HEADER)
-	$(CC) $(CF) -c $< -o $@ -I $(LFT)/include
-
-clean:
-	make fclean -C $(LFT)
-	rm -f $(GNL)/$(GNL).o
-	rm -f $(CHOFILES) $(PSOFILES)
+# create $(PSOFILES)
+obj/$(LPS)/%.o: src/$(LPS)/%.c obj $(LPS_H) $(LFT_H) $(LFT) $(GNL_H) $(GNL_C)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)
+	@echo "$(GREENB) $(DEFAULT)\c"
 
 fclean: clean
-	rm -f checker push_swap
+	@rm -f checker push_swap
+	@echo "> $(RED)push_swap fclean$(DEFAULT)"
 
-re: clean all
+clean: fclean_$(LFT)
+	@rm -f $(PSOFILES) obj/push_swap.o obj/checker.o $(GNL_O)
+	@rm -fd obj/$(LPS) obj
+	@echo "> $(YELLOW)push_swap clean$(DEFAULT)"
+
+re: fclean all

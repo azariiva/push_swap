@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:09:17 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/11 23:47:26 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/12 21:39:42 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 # define LIBFT_H
 
+# include "libft_list.h"
+# include "libft_string.h"
+# include "libft_ctype.h"
+# include "libft_io.h"
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-# ifndef EOF
-#  define EOF -1
-# endif
 
 /*
 ** ************************************************************************** **
@@ -98,195 +98,8 @@ long			ft_labs(long i);
 */
 long long		ft_llabs(long long i);
 
-/*
-** ************************************************************************** **
-**						STRING FUNCTIONS									  **
-** ************************************************************************** **
-*/
-char			*ft_strsub(char const *s, unsigned int start, size_t len);
-char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strtrim(char const *s);
-char			**ft_strsplit(char const *s, char c);
-char			*ft_strnew(size_t size);
-void			ft_strdel(char **as);
-void			ft_strclr(char *s);
-void			ft_striter(char *s, void (*f)(char *));
-void			ft_striteri(char *s, void (*f)(unsigned int, char *));
-size_t			ft_strlen(const char *s);
-char			*ft_strdup(const char *s1);
-char			*ft_strmap(char const *s, char (*f)(char));
-char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int				ft_strequ(char const *s1, char const *s2);
-int				ft_strnequ(char const *s1, char const *s2, size_t n);
-char			*ft_strcpy(char *dst, const char *src);
-char			*ft_strncpy(char *dst, const char *src, size_t len);
-char			*ft_strcat(char *s1, const char *s2);
-char			*ft_strncat(char *s1, const char *s2, size_t n);
-size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
-char			*ft_strchr(const char *s, int c);
-char			*ft_strrchr(const char *s, int c);
-char			*ft_strstr(const char *haystack, const char *needle);
-char			*ft_strnstr(const char *haystack, const char *needle, \
-		size_t len);
-int				ft_strcmp(const char *s1, const char *s2);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_itoa(int n);
 int				ft_atoi(const char *str);
-
-/*
-** ctype functions
-*/
-int				ft_isalnum(int c);
-int				ft_isalpha(int c);
-int				ft_isascii(int c);
-int				ft_isblank(int c);
-int				ft_iscntrl(int c);
-int				ft_isdigit(int c);
-int				ft_isgraph(int c);
-int				ft_islower(int c);
-int				ft_isprint(int c);
-int				ft_ispunct(int c);
-int				ft_isspace(int c);
-int				ft_isupper(int c);
-int				ft_isxdigit(int c);
-int				ft_toupper(int c);
-int				ft_tolower(int c);
-
-/*
-** ************************************************************************** **
-**						PRINT FUNCTIONS										  **
-** ************************************************************************** **
-*/
-/*
-** The ft_putchar_fd() function writes the character c (converted to an
-** ``unsigned char'') to the file descriptor fd.
-*/
-int				ft_putchar_fd(char c, int fd);
-/*
-** The ft_putchar() function is identical to ft_putchar_fd() with a file
-** descriptor STDOUT_FILENO.
-*/
-int				ft_putchar(char c);
-/*
-** Outputs the string str to the file descriptor fd.
-*/
-int				ft_putstr_fd(char const *str, int fd);
-/*
-** The ft_putstr() function is identical to ft_putsrt_fd() with a file
-** descriptor STDOUT_FILENO
-*/
-int				ft_putstr(char const *str);
-/*
-** Outputs the string str followed by a '\n' to the file descriptor fd.
-*/
-int				ft_putendl_fd(char const *str, int fd);
-/*
-** The ft_putendl() function is identical to ft_putendl_fd() with a file
-** descriptor STDOUT_FILENO
-*/
-int				ft_putendl(char const *s);
-/*
-** Outputs the integer n to the file descriptor fd.
-*/
-int				ft_putnbr_fd(int n, int fd);
-/*
-** The ft_putnbr() function is identical to ft_putnbr_fd() with a file
-** descriptor STDOUT_FILENO
-*/
-int				ft_putnbr(int n);
-
-/*
-** ************************************************************************** **
-**						LIST FUNCTIONS										  **
-** ************************************************************************** **
-*/
-typedef struct	s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}				t_list;
-/*
-** Allocates (with malloc(3)) and returns a “fresh” link. The variables content
-** and content_size of the new link are initialized by copy of the parameters of
-** the function. If the parameter content is nul, the variable content is
-** initialized to NULL and the variable content_size is initialized to 0 even if
-** the parameter content_size isn’t. The variable next is initialized to NULL.
-** If the allocation fails, the function returns NULL.
-*/
-t_list			*ft_lstnew(void const *content, size_t content_size);
-/*
-** Takes as a parameter a link’s pointer address and frees the memory of the
-** link’s content using the function del given as a parameter, then frees the
-** link’s memory using free(3). Finally, the pointer to the link that was just
-** freed sets to NULL.
-*/
-void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-/*
-** Takes as a parameter a link’s pointer address and doesn't free the memory of
-** the link’s content, then frees the link’s memory using free(). Finally, the
-** pointer to the link that was just freed set to NULL.
-*/
-void			ft_lstdelone_ic(t_list **alst);
-/*
-** Takes as a parameter the adress of a pointer to a link and frees the memory
-** of this link and every successors of that link using the functions del and
-** free(). 
-**  The pointer to the link that was just freed must be set to
-** NULL.
-*/
-void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-/*
-** Takes as a parameter the adress of a pointer to a link and frees the memory
-** of this link and every successors of that link using the function free()
-** ignoring content. 
-** Finally the pointer to the link that was just freed must be set to NULL.
-*/
-void			ft_lstdel_ic(t_list **alst);
-/*
-** Adds the element new at the beginning of the list.
-*/
-void			ft_lstadd(t_list **alst, t_list *new);
-/*
-** Iterates the list lst and applies the function f to each link.
-*/
-void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-/*
-** Iterates a list lst and applies the function f to each link to create a
-** “fresh” list (using malloc(3)) resulting from the successive applications of
-** f. If the allocation fails, the function returns NULL.
-*/
-t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-/*
-** Swaps top two elements of the list. Does nothing if there are one or less
-** elements in the list.
-*/
-void			ft_lstswptop(t_list **lst);
-/*
-** Pops first element of the list. If the first element is unreachable returns
-** NULL.
-*/
-t_list			*ft_lstpoptop(t_list **lst);
-/*
-** Pops last element of the list. If the last element is unreachable returns
-** NULL.
-*/
-t_list			*ft_lstpopbot(t_list **lst);
-/*
-** Takes the first element at the top of src and put it at the top of dst. Do
-** nothing if src is empty.
-*/
-void			ft_lsttrans(t_list **dst, t_list **src);
-/*
-** Shifts up all elements of list a by 1. The first element becomes the last
-** one.
-*/
-void			ft_lstshftup(t_list **lst);
-/*
-** Shifts down all elements of list a by 1. The last element becomes the first
-** one.
-*/
-void			ft_lstshftdown(t_list **lst);
 
 /*
 ** Additional functions

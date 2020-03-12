@@ -1,6 +1,8 @@
 {
     "files.associations": {
-        "libft.h": "c"
+        "libft.h": "c",
+        "libft_io.h": "c",
+        "string.h": "c"
     },
     "editor.rulers": [80],
     "workbench.colorCustomizations": {

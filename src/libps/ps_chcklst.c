@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_labs.c                                          :+:      :+:    :+:   */
+/*   ps_chcklst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:52:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 16:17:00 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/12 19:52:56 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/12 20:31:39 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_labs(long i)
+#include "libps.h"
+
+int	ps_chcklst(t_list *lst, int content_size)
 {
-	return (i < 0 ? -i : i);
+	while (lst)
+	{
+		if ((int)lst->content_size == content_size)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
 }
