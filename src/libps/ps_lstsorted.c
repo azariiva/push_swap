@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstshftup.c                                     :+:      :+:    :+:   */
+/*   ps_lstsorted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 22:44:45 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 15:00:57 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/13 15:27:28 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/13 23:34:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_list.h"
+#include "libps.h"
 
-void	ft_lstshftup(t_list **lst)
+int	ps_lstsorted(t_list *lst, int (*cmp)(size_t a, size_t b))
 {
-	t_list	*head;
-	t_list	*iter;
-
-	if (lst && *lst && ((*lst)->next))
+	while (lst)
 	{
-		head = ft_lstpoptop(lst);
-		iter = *lst;
-		while (iter->next)
-			iter = iter->next;
-		iter->next = head;
+		if (lst->next && \
+		cmp(((t_ps *)(lst->next->content))->index, ((t_ps *)(lst->content))->index))
+			return (0);
+		lst = lst->next;
 	}
+	return (1);
 }

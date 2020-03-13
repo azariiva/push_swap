@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 17:37:07 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/12 21:39:01 by blinnea          ###   ########.fr        #
+#    Updated: 2020/03/13 20:01:44 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ FILES =		ft_memset ft_memdel ft_memalloc ft_bzero ft_memcpy ft_memccpy \
 			ft_memcmp
 LSTFILES =	ft_lstnew ft_lstdelone ft_lstdel ft_lstadd ft_lstiter ft_lstmap \
 			ft_lstdelone_ic ft_lstdel_ic ft_lstswptop ft_lstpoptop ft_lsttrans \
-			ft_lstshftup ft_lstpopbot ft_lstshftdown ft_lstnew_ic
+			ft_lstshftup ft_lstpopbot ft_lstshftdown ft_lstnew_ic ft_lstsize
 STRFILES =	ft_strnew ft_strdel ft_strclr ft_striter ft_striteri ft_strlen \
 			ft_strdup ft_strcpy ft_strmap ft_strmapi ft_strequ ft_strnequ \
 			ft_strsub ft_strjoin ft_strtrim ft_strncpy ft_strcat ft_strncat \

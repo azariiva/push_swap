@@ -6,13 +6,13 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:06:26 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 21:24:25 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/13 18:38:48 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps.h"
 
-int	ps_procui(t_list **a, t_list **b)
+int			ps_procui(t_list **a, t_list **b, int debug)
 {
 	char	*line;
 	ssize_t	gnlrv;
@@ -26,10 +26,7 @@ int	ps_procui(t_list **a, t_list **b)
 		else if (!ft_strcmp(line, "sb"))
 			ft_lstswptop(b);
 		else if (!ft_strcmp(line, "ss"))
-		{
-			ft_lstswptop(a);
-			ft_lstswptop(b);
-		}
+			ps_dact(a, b, ft_lstswptop);
 		else if (!ft_strcmp(line, "pa"))
 			ft_lsttrans(a, b);
 		else if (!ft_strcmp(line, "pb"))
@@ -39,19 +36,13 @@ int	ps_procui(t_list **a, t_list **b)
 		else if (!ft_strcmp(line, "rb"))
 			ft_lstshftup(b);
 		else if (!ft_strcmp(line, "rr"))
-		{
-			ft_lstshftup(a);
-			ft_lstshftup(b);
-		}
+			ps_dact(a, b, ft_lstshftup);
 		else if (!ft_strcmp(line, "rra"))
 			ft_lstshftdown(a);
 		else if (!ft_strcmp(line, "rrb"))
 			ft_lstshftdown(b);
 		else if (!ft_strcmp(line, "rrr"))
-		{
-			ft_lstshftdown(a);
-			ft_lstshftdown(b);
-		}
+			ps_dact(a, b, ft_lstshftdown);
 		else
 		{
 			// TODO: try to clear fdlist from get_next_line
@@ -63,7 +54,8 @@ int	ps_procui(t_list **a, t_list **b)
 			return (-1);
 		}
 		ft_strdel(&line);
-		line = NULL;
+		if (debug)
+			ps_debuginfo(*a, *b);
 	}
 	return (0);
 }

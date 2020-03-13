@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstshftup.c                                     :+:      :+:    :+:   */
+/*   ps_del.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 22:44:45 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 15:00:57 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/13 14:40:53 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/13 14:41:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_list.h"
+#include"libps.h"
 
-void	ft_lstshftup(t_list **lst)
+void	ps_del(void *content, size_t size)
 {
-	t_list	*head;
-	t_list	*iter;
-
-	if (lst && *lst && ((*lst)->next))
-	{
-		head = ft_lstpoptop(lst);
-		iter = *lst;
-		while (iter->next)
-			iter = iter->next;
-		iter->next = head;
-	}
+	if (size && content)
+		free(content);
 }

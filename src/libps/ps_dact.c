@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstshftup.c                                     :+:      :+:    :+:   */
+/*   ps_dact.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 22:44:45 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 15:00:57 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/13 18:38:34 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/13 18:40:30 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_list.h"
+#include "libps.h"
 
-void	ft_lstshftup(t_list **lst)
+void	ps_dact(t_list **a, t_list **b, void (*act)(t_list **))
 {
-	t_list	*head;
-	t_list	*iter;
-
-	if (lst && *lst && ((*lst)->next))
-	{
-		head = ft_lstpoptop(lst);
-		iter = *lst;
-		while (iter->next)
-			iter = iter->next;
-		iter->next = head;
-	}
+	act(a);
+	act(b);
 }

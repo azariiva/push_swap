@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 14:39:42 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 20:26:58 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/13 15:20:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,9 @@ void			ft_lstshftup(t_list **lst);
 ** one.
 */
 void			ft_lstshftdown(t_list **lst);
+/*
+** Calculates size of the stack
+*/
+size_t			ft_lstsize(t_list *lst);
 
 #endif

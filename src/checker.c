@@ -6,46 +6,57 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 18:45:54 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/12 21:06:50 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/13 23:44:17 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps.h"
 #include "get_next_line.h"
 
-void	f_print(t_list *elem)
+static int	cmp(size_t a, size_t b)
 {
-	if (elem)
-	{
-		ft_putnbr(elem->content_size);
-		if (elem->next)
-			ft_putchar(' ');
-	}
-	else
-		ft_putstr("NULL");
+	return (a > b);
 }
 
-int		main(int ac, char **av)
+static void	throw_error(void)
+{
+	ft_putendl_fd("Error", STDERR_FILENO);
+	exit(0);
+}
+
+static void	throw_unexpected(void)
+{
+	ft_putendl_fd("Unexpected Error", STDERR_FILENO);
+	exit(-1);
+}
+
+int			main(int ac, char **av)
 {
 	t_list	*a;
 	t_list	*b;
-	int		puirv;
+	int		pui_rv;
+	int		debug;
 
+	debug = 1;
 	if (ac == 1)
 		return (0);
 	if (!(a = ps_crtlst(av + 1, ac - 1)))
-		ft_putendl_fd("Error", STDERR_FILENO);
-	else
+		throw_error();
+	b = NULL;
+	ps_debuginfo(a, b);
+	if ((pui_rv = ps_procui(&a, &b, debug)) == 0)
 	{
-		b = NULL;
-		if ((puirv = ps_procui(&a, &b)) == -1)
-			ft_putendl_fd("Error", STDERR_FILENO);
-		else if (puirv == -2)
-			ft_putendl_fd("Unexpected Error", STDERR_FILENO);
+		if (ps_lstsorted(a, cmp) && b == NULL)
+			ft_putendl("OK");
 		else
-			ft_lstiter(a, f_print);
-		ft_lstdel_ic(&a);
-		ft_lstdel_ic(&b);
+			ft_putendl("KO");
+
 	}
+	else if (pui_rv == -1)
+		throw_error();
+	if (pui_rv == -2)
+		throw_unexpected();
+	ft_lstdel(&a, ps_del);
+	ft_lstdel(&b, ps_del);
 	return (0);
 }

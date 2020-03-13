@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstshftup.c                                     :+:      :+:    :+:   */
+/*   ps_ss.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 22:44:45 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 15:00:57 by blinnea          ###   ########.fr       */
+/*   Created: 2020/03/13 19:23:36 by blinnea           #+#    #+#             */
+/*   Updated: 2020/03/13 21:33:12 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_list.h"
+#include "libps.h"
 
-void	ft_lstshftup(t_list **lst)
+void	ps_ss(t_psab *stacks)
 {
-	t_list	*head;
-	t_list	*iter;
-
-	if (lst && *lst && ((*lst)->next))
+	ps_dact(&(stacks->a), &(stacks->b), ft_lstswptop);
+	if (stacks->debug)
 	{
-		head = ft_lstpoptop(lst);
-		iter = *lst;
-		while (iter->next)
-			iter = iter->next;
-		iter->next = head;
+		ft_putendl("\033[31mAction: ss\033[0m");
+		ps_showstcks(stacks);
 	}
+	else
+		ft_putendl("ss");
 }
