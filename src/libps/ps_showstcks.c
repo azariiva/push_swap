@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 19:02:01 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 22:04:16 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/15 17:04:35 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ps_showstcks(t_psab *stacks)
 	t_list	*a;
 	t_list	*b;
 
-	ft_putstr("\033[32m");
+	if (stacks->color)
+		ft_putstr(GREEN_FONT);
 	if (stacks)
 	{
 		a = stacks->a;
@@ -78,8 +79,11 @@ void	ps_showstcks(t_psab *stacks)
 				ft_putstr("                     ");
 			ft_putchar('\n');
 		}
+		if (stacks->color)
+			ft_putstr(BLUE_FONT);
 		ft_putendl("---------------------\t---------------------");
 		ft_putendl("          A           \t          B         \n");
 	}
-	ft_putstr("\033[0m");
+	if (stacks->color)
+		ft_putstr(RESET_CONSOLE);
 }

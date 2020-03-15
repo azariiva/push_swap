@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:55:31 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 23:33:08 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/15 16:53:56 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include <limits.h>
+
+# define RESET_CONSOLE "\033[0m"
+# define GREEN_FONT "\033[32m"
+# define RED_FONT "\033[31m"
+# define BLUE_FONT "\033[34m"
 
 typedef struct	s_ps
 {
@@ -32,6 +37,7 @@ typedef struct	s_psab
 	size_t	size_a;
 	size_t	size_b;
 	int		debug;
+	int		color;
 }				t_psab;
 
 void			ps_del(void *content, size_t size);
@@ -66,5 +72,9 @@ void			ps_rrr(t_psab *stacks);
 ** Shows stacks status.
 */
 void			ps_showstcks(t_psab *stacks);
+/*
+** Shows action done on stack.
+*/
+void	ps_showact(char *action, t_psab *stacks);
 
 #endif

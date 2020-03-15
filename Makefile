@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/13 20:02:39 by blinnea          ###   ########.fr        #
+#    Updated: 2020/03/15 17:09:52 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ LPS_H =		include/$(LPS).h
 # **************************************************************************** #
 PSFILES =	ps_del ps_lstnew ps_chcklst ps_atoi ps_crtlst ps_procui ps_print \
 			ps_debuginfo ps_lstsorted ps_giveindex ps_dact ps_showstcks
-TAFILES =	ps_sa ps_sb ps_ss ps_pa ps_pb ps_ra ps_rb ps_rr ps_rra ps_rrb ps_rrr
+TAFILES =	ps_sa ps_sb ps_ss ps_pa ps_pb ps_ra ps_rb ps_rr ps_rra ps_rrb \
+			ps_rrr ps_showact
 PSOFILES =	$(patsubst %, obj/$(LPS)/%.o, $(PSFILES))
 TAOFILES =	$(patsubst %, obj/$(TA)/%.o, $(TAFILES))
 GNL_C =		$(GNL)/$(GNL).c
