@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 21:31:44 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/15 21:51:00 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,15 @@ void		psfs_mov(t_psab *stacks)
 			if (side_1st == 1)
 			{
 				while (++i < acts_1st)
-					ps_rb(stacks);
+				{
+					if (((t_ps *)(stacks->b->next->content))->index == stacks->size_a)
+					{
+						ps_sb(stacks);
+						break;
+					}
+					else
+						ps_rb(stacks);
+				}
 			}
 			else
 			{

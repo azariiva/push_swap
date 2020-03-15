@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 18:45:54 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 23:44:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/15 21:52:30 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int			main(int ac, char **av)
 	int		pui_rv;
 	int		debug;
 
-	debug = 1;
+	debug = 0;
 	if (ac == 1)
 		return (0);
 	if (!(a = ps_crtlst(av + 1, ac - 1)))
 		throw_error();
 	b = NULL;
-	ps_debuginfo(a, b);
+	//ps_debuginfo(a, b);
 	if ((pui_rv = ps_procui(&a, &b, debug)) == 0)
 	{
 		if (ps_lstsorted(a, cmp) && b == NULL)
