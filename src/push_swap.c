@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 21:51:00 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/19 14:06:21 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <limits.h>
 #include <stdio.h>
 
-static int	cmp1(size_t a, size_t b)
+static int	cmpA(size_t current, size_t next)
 {
-	return (a > b);
+	return (current < next);
 }
 
-static int	cmp2(size_t a, size_t b)
+static int	cmpB(size_t current, size_t next)
 {
-	return (a < b);
+	return (current < next);
 }
 
 static void	ps_print_ext(t_list *elem)
