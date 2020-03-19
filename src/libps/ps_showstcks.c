@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 19:02:01 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 17:04:35 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/19 15:51:50 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int		ft_putnbralgn_fd(int n, int fd)
 		*ptr-- = n % 10 + '0';
 		n /= 10;
 	}
+	if (negative)
+		*ptr-- = '-';
 	ftpna_algn(buf, ptr);
 	if ((written = write(fd, buf, 21)) == -1)
 		return (EOF);

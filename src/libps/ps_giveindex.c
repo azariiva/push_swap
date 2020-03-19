@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 16:26:59 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 16:52:19 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/19 15:57:09 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static size_t	psgi_helper(t_list *lst)
 		ptr = lst->next;
 		while (ptr)
 		{
-			if (((t_ps *)(ptr->content))->val > ((t_ps *)(lst->content))->val)
+			if (((t_ps *)(ptr->content))->val < ((t_ps *)(lst->content))->val)
 				((t_ps *)(lst->content))->index++;
 			else
 				((t_ps *)(ptr->content))->index++;
@@ -43,7 +43,7 @@ size_t			ps_giveindex(t_list *lst)
 		ptr = lst->next;
 		while (ptr)
 		{
-			if (((t_ps *)(ptr->content))->val > ((t_ps *)(lst->content))->val)
+			if (((t_ps *)(ptr->content))->val < ((t_ps *)(lst->content))->val)
 				((t_ps *)(lst->content))->index++;
 			else
 				((t_ps *)(ptr->content))->index++;
