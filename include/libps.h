@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:55:31 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 16:53:56 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/19 16:42:11 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_psab
 	size_t	size_b;
 	int		debug;
 	int		color;
+	size_t	lsindex;
 }				t_psab;
 
 void			ps_del(void *content, size_t size);

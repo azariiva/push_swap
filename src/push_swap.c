@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/19 16:28:11 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/23 16:29:10 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void		ps_movB(t_psab *stacks)
 	size_t	i;
 
 	median = find_median(stacks->a, stacks->size_a);
-	printf("Median %zu\n", median);
 	while (1)
 	{
 		tacts = find_tacts(stacks->a, stacks->size_a, median, cmpA);
@@ -129,6 +128,81 @@ void		ps_movB(t_psab *stacks)
 			ps_pb(stacks);
 		}
 	}
+
+}
+
+void		ps_movAtop(t_psab *stacks, size_t median, size_t acts)
+{
+	size_t	i;
+
+	while (1)
+	{
+		if (acts == -1)
+			return ;
+		i = -1;
+		while (++i < acts)
+		{
+			if (((t_ps *)stacks->b->content)->index == stacks->lsindex)
+			{
+				ps_pa(stacks);
+				stacks->lsindex++;
+				++i;
+				while (((t_ps *)stacks->b->content)->index == stacks->lsindex)
+				{
+					ps_ra(stacks);
+					ps_pa(stacks);
+					++i;
+					stacks->lsindex++;
+				}
+				if (i < acts)
+					ps_rr(stacks);
+				else
+					ps_ra(stacks);
+			}
+			else
+				ps_rb(stacks);
+		}
+		if (i == acts)
+			ps_pa(stacks);
+		acts = find_tacts(stacks->b, stacks->size_b, median, cmpB);
+	}
+}
+
+void		ps_movAbot(t_psab *stacks, size_t median, size_t acts)
+{
+	size_t	i;
+
+	while (1)
+	{
+		if (acts == -1)
+			return ;
+		i = -1;
+		while (++i < acts)
+		{
+			while (((t_ps *)stacks->b->content)->index == stacks->lsindex)
+			{
+				ps_pa(stacks);
+				ps_ra(stacks);
+				stacks->lsindex++;
+			}
+			ps_rrb(stacks);
+		}
+		ps_pa(stacks);
+		acts = find_bacts(stacks->b, stacks->size_b, median, cmpB);
+	}
+}
+
+
+void		ps_movA(t_psab *stacks)
+{
+	size_t	tacts;
+	size_t	bacts;
+	size_t	median;
+
+	median = find_median(stacks->b, stacks->size_b);
+	tacts = find_tacts(stacks->b, stacks->size_b, median, cmpB);
+	bacts = find_bacts(stacks->b, stacks->size_b, median, cmpB);
+	(tacts <= bacts ? ps_movAtop(stacks, median, tacts) : ps_movAbot(stacks, median, bacts));
 }
 
 int	main(int ac, char **av)
@@ -142,11 +216,13 @@ int	main(int ac, char **av)
 	stacks.b = NULL;
 	stacks.debug = 1;
 	stacks.color = 1;
+	stacks.lsindex = 1;
 	stacks.size_a = ps_giveindex(stacks.a);
 	stacks.size_b = 0;
 	stacks.size = stacks.size_a;
-	printf("%zu\n", stacks.size_a);
-	ft_lstiter(stacks.a, ps_print_ext);
 	ps_movB(&stacks);
+	while (stacks.size_b > 13)
+		ps_movA(&stacks);
+
 	return (0);
 }
