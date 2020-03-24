@@ -25,6 +25,11 @@ static const int	cmpB(size_t current, size_t next)
 	return (next < current);
 }
 
+static const int	cmpC(size_t current, size_t next)
+{
+	return (next == current);
+}
+
 static void	ps_print_ext(t_list *elem)
 {
 	ft_putnbr(((t_ps *)(elem->content))->val);
@@ -130,7 +135,7 @@ void		ps_movB(t_psab *stacks)
 
 }
 
-void		ps_movAtop(t_psab *stacks, size_t median, size_t acts)
+void		ps_movAtop(t_psab *stacks, size_t median, size_t acts, const int (*cmp)(size_t, size_t))
 {
 	size_t	i;
 
@@ -146,7 +151,7 @@ void		ps_movAtop(t_psab *stacks, size_t median, size_t acts)
 				ps_pa(stacks);
 				stacks->lsindex++;
 				++i;
-				while (((t_ps *)stacks->b->content)->index == stacks->lsindex)
+				while (stacks->size_b && (((t_ps *)stacks->b->content)->index == stacks->lsindex))
 				{
 					ps_ra(stacks);
 					ps_pa(stacks);
@@ -163,11 +168,11 @@ void		ps_movAtop(t_psab *stacks, size_t median, size_t acts)
 		}
 		if (i == acts)
 			ps_pa(stacks);
-		acts = find_tacts(stacks->b, stacks->size_b, median, cmpB);
+		acts = find_tacts(stacks->b, stacks->size_b, median, cmp);
 	}
 }
 
-void		ps_movAbot(t_psab *stacks, size_t median, size_t acts)
+void		ps_movAbot(t_psab *stacks, size_t median, size_t acts, const int (*cmp)(size_t, size_t))
 {
 	size_t	i;
 
@@ -178,7 +183,7 @@ void		ps_movAbot(t_psab *stacks, size_t median, size_t acts)
 		i = -1;
 		while (++i < acts)
 		{
-			while (((t_ps *)stacks->b->content)->index == stacks->lsindex)
+			while (stacks->size_b && ((t_ps *)stacks->b->content)->index == stacks->lsindex)
 			{
 				ps_pa(stacks);
 				ps_ra(stacks);
@@ -187,21 +192,76 @@ void		ps_movAbot(t_psab *stacks, size_t median, size_t acts)
 			ps_rrb(stacks);
 		}
 		ps_pa(stacks);
-		acts = find_bacts(stacks->b, stacks->size_b, median, cmpB);
+		acts = find_bacts(stacks->b, stacks->size_b, median, cmp);
 	}
 }
 
-
-void		ps_movA(t_psab *stacks)
+void		ps_movA(t_psab *stacks, size_t median)
 {
 	size_t	tacts;
 	size_t	bacts;
-	size_t	median;
+	// size_t	median;
 
-	median = find_median(stacks->b, stacks->size_b);
+	// median = find_median(stacks->b, stacks->size_b);
 	tacts = find_tacts(stacks->b, stacks->size_b, median, cmpB);
 	bacts = find_bacts(stacks->b, stacks->size_b, median, cmpB);
-	(tacts <= bacts ? ps_movAtop(stacks, median, tacts) : ps_movAbot(stacks, median, bacts));
+	(tacts <= bacts ? ps_movAtop(stacks, median, tacts, cmpB) : ps_movAbot(stacks, median, bacts, cmpB));
+}
+
+size_t	findMax(t_list *lst)
+{
+	size_t	max;
+
+	max = 0;
+	while (lst)
+	{
+		if (max < ((t_ps *)lst->content)->index)
+			max = ((t_ps *)lst->content)->index;
+		lst = lst->next;
+	}
+	return (max);
+}
+
+void	movAsort(t_psab *stacks)
+{
+	size_t	tacts;
+	size_t	bacts;
+	size_t	max;
+
+	while (1)
+	{
+		max = findMax(stacks->b);
+		tacts = find_tacts(stacks->b, stacks->size_b, max, cmpC);
+		bacts = find_bacts(stacks->b, stacks->size_b, max, cmpC);
+		(tacts <= bacts ? ps_movAtop(stacks, max, tacts, cmpC) : ps_movAbot(stacks, max, bacts, cmpC));
+		if (!stacks->size_b)
+			break;
+	}
+}
+
+void	sortA(t_psab *stacks)
+{
+	while (stacks->a->next)
+	{
+		if (((t_ps *)stacks->a->next->content)->index > ((t_ps *)stacks->a->content)->index)
+			ps_ra(stacks);
+		else
+			break;
+	}
+}
+
+void	push_swap(t_psab *stacks)
+{
+	size_t	median;
+	
+	if (stacks->size_b == 0)
+		return ;
+	median = find_median(stacks->b, stacks->size_b);
+	while (stacks->size_b > 12)
+		ps_movA(stacks, 12);
+	
+	// movAsort(stacks);
+	// sortA(stacks);
 }
 
 int	main(int ac, char **av)
@@ -220,8 +280,7 @@ int	main(int ac, char **av)
 	stacks.size_b = 0;
 	stacks.size = stacks.size_a;
 	ps_movB(&stacks);
-	while (stacks.size_b > 13)
-		ps_movA(&stacks);
+	push_swap(&stacks);
 
 	return (0);
 }

@@ -24,7 +24,7 @@ GREENB =	\033[42m
 #                               COMPILER OPTIONS                               #
 # **************************************************************************** #
 CC =		gcc
-CF =		-Wall -Wextra -Werror
+CF =		-Wall -Wextra -Werror -g
 
 # **************************************************************************** #
 #                               ABBREVIATIONS                                  #
@@ -63,11 +63,11 @@ obj:
 	@mkdir -p obj/$(TA)
 
 checker: src/checker.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(TAOFILES)
-	@gcc $< $(GNL_C) $(PSOFILES) $(TAOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
+	@gcc -g $< $(GNL_C) $(PSOFILES) $(TAOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
 	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
 
 push_swap: src/push_swap.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(TAOFILES)
-	@gcc $< $(GNL_C) $(PSOFILES) $(TAOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
+	@gcc -g $< $(GNL_C) $(PSOFILES) $(TAOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
 	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
 
 $(LFT):

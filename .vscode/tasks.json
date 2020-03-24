@@ -1,0 +1,12 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "command": "make re",
+    "isShellCommand": true,
+    // "args": ["-g", "src/*.c", "-Llibft", "-lft", "-I", "include/", "-I", "libft/include/", "-o", "push_swap"],
+    "showOutput": "always",
+    "problemMatchers": [
+        "$gcc"
+    ],
+}
