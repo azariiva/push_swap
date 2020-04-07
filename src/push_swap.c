@@ -15,12 +15,12 @@
 #include <limits.h>
 #include <stdio.h>
 
-static int	cmpA(size_t current, size_t next)
+static const int	cmpA(size_t current, size_t next)
 {
 	return (current < next);
 }
 
-static int	cmpB(size_t current, size_t next)
+static const int	cmpB(size_t current, size_t next)
 {
 	return (next < current);
 }
@@ -111,8 +111,7 @@ void		ps_movB(t_psab *stacks)
 	{
 		tacts = find_tacts(stacks->a, stacks->size_a, median, cmpA);
 		bacts = find_bacts(stacks->a, stacks->size_a, median, cmpA);
-
-		if (tacts == (size_t)-1 && tacts == (size_t)-1)
+		if (tacts == (size_t)-1 && bacts == (size_t)-1)
 			break;
 		i = -1;
 		if (tacts > bacts)
