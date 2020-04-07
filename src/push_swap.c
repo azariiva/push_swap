@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/23 16:29:10 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/03/23 16:47:24 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void		ps_movB(t_psab *stacks)
 			ps_pb(stacks);
 		}
 	}
-
 }
 
 void		ps_movAtop(t_psab *stacks, size_t median, size_t acts)
@@ -203,6 +202,8 @@ void		ps_movA(t_psab *stacks)
 	tacts = find_tacts(stacks->b, stacks->size_b, median, cmpB);
 	bacts = find_bacts(stacks->b, stacks->size_b, median, cmpB);
 	(tacts <= bacts ? ps_movAtop(stacks, median, tacts) : ps_movAbot(stacks, median, bacts));
+	if (stacks->size_b >= 13)
+		ps_movA(stacks);
 }
 
 int	main(int ac, char **av)
@@ -221,8 +222,6 @@ int	main(int ac, char **av)
 	stacks.size_b = 0;
 	stacks.size = stacks.size_a;
 	ps_movB(&stacks);
-	while (stacks.size_b > 13)
-		ps_movA(&stacks);
-
+	ps_movA(&stacks);
 	return (0);
 }
