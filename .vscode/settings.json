@@ -8,7 +8,8 @@
         "libft_list.h": "c",
         "libft_string.h": "c",
         "libps.h": "c",
-        "tuple": "c"
+        "tuple": "c",
+        "types.h": "c"
     },
     "editor.rulers": [80],
     "workbench.colorCustomizations": {

@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 13:42:55 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/08 17:18:46 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/09 15:33:34 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void		show_stacks(t_push_swap *self)
 
 static int		make_move(t_push_swap *self, char const *action)
 {
-	if (!self->quiet)
+	if (self->action)
 		ft_putendl(action);
 	if (!ft_strcmp(action, "sa"))
 		self->a->swap(self->a);
@@ -133,7 +133,7 @@ static int		make_move(t_push_swap *self, char const *action)
 	}
 	else
 		return (-1); // wrong input
-	if (!self->quiet && self->visualize)
+	if (self->visualize)
 		show_stacks(self);
 	return (0); // everything is OK
 }
@@ -221,7 +221,7 @@ static int		fill_stack(t_stack *stk, char **src, int size)
 	return (0); // everything is OK
 }
 
-t_push_swap		*new_push_swap(char **arr, int size, int v, int c, int q)
+t_push_swap		*new_push_swap(char **arr, int size, char const vcq[3])
 {
 	t_push_swap	*new;
 
@@ -233,9 +233,9 @@ t_push_swap		*new_push_swap(char **arr, int size, int v, int c, int q)
 		destructor(&new);
 		return (NULL);
 	}
-	new->visualize = v;
-	new->color = c;
-	new->quiet = q;
+	new->visualize = vcq[0];
+	new->color = vcq[1];
+	new->action = vcq[2];
 
 	new->show_stacks = show_stacks;
 	new->make_move = make_move;
