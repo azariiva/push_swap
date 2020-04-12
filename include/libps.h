@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:55:31 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/09 15:32:50 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/12 11:51:09 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct	s_stack
 {
 	size_t	size;
 	t_list	*top;
+	size_t	maximum;
+	size_t	minimum;
 
 	void	(*swap)(struct s_stack *self);
 	void	(*push)(struct s_stack *self, struct s_stack *source);
@@ -58,5 +60,6 @@ typedef struct	s_push_swap
 t_stack			*new_stack(void);
 t_push_swap		*new_push_swap(char **string_array, int array_size, \
 char const vcq[3]);
+void			solve_push_swap(t_push_swap *ps);
 
 #endif

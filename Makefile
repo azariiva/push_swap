@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/04/08 15:51:28 by blinnea          ###   ########.fr        #
+#    Updated: 2020/04/12 11:28:50 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LPS_H =		include/$(LPS).h
 # **************************************************************************** #
 #                                 FILENAMES                                    #
 # **************************************************************************** #
-PSFILES =	t_stack t_push_swap
+PSFILES =	t_stack t_push_swap solve_push_swap
 PSOFILES =	$(patsubst %, obj/$(LPS)/%.o, $(PSFILES))
 GNL_C =		$(GNL)/$(GNL).c
 GNL_O =		$(GNL)/$(GNL).o

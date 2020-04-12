@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/09 15:35:31 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/12 12:30:36 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	main(int ac, char **av)
 		return (0);
 	if (!(ps = new_push_swap(av + 1, ac - 1, "\0\0\1")))
 		throw_error();
-	ps->make_move(ps, "sa");
-	ps->make_move(ps, "sa");
+	solve_push_swap(ps);
 	ps->destructor(&ps);
 	return (0);
 }
