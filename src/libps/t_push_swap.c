@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 13:42:55 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/12 11:50:58 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/13 10:38:39 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ t_push_swap		*new_push_swap(char **arr, int size, char const vcq[3])
 	}
 	new->a->maximum = new->a->size;
 	new->a->minimum = 1;
+	new->sorted = 0;
 	new->visualize = vcq[0];
 	new->color = vcq[1];
 	new->action = vcq[2];

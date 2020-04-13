@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 13:19:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/12 13:13:59 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/13 10:40:32 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ size_t	throw_left_median(t_push_swap *ps, size_t median)
 		{
 			ps->make_move(ps, "pa");
 			ps->make_move(ps, "ra");
+			ps->sorted++;
 		}
 		else
 			ps->make_move(ps, "rb");
@@ -72,20 +73,27 @@ void	throw_left_sorted(t_push_swap *ps)
 		{
 			ps->make_move(ps, "pa");
 			ps->make_move(ps, "ra");
+			ps->sorted++;
 		}
 		else
 			ps->make_move(ps, "rb");
 	}
 	while (ontop--)
+	{
 		ps->make_move(ps, "ra");
+		ps->sorted++;
+	}
 }
 
 void	throw_right(t_push_swap *ps, size_t	q)
 {
 	while (q--)
 	{
-		if (((t_ps *)ps->a->top->content)->index == ps->a->minimum)
+		if (((t_ps *)ps->a->top->content)->index == ps->sorted + 1)
+		{
 			ps->make_move(ps, "ra");
+			ps->sorted++;
+		}
 		else
 			ps->make_move(ps, "pb");
 	}
@@ -117,4 +125,5 @@ void	solve_push_swap(t_push_swap *ps)
 	push_swap(ps);
 	throw_right(ps, ps->a->size - thrown);
 	push_swap(ps);
+	//push_swap(ps);
 }

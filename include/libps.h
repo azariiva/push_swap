@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:55:31 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/12 11:51:09 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/13 10:38:23 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_push_swap
 {
 	t_stack	*a;
 	t_stack	*b;
+	size_t	sorted;
 
 	int		visualize:1;
 	int		color:1;
