@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/04/12 11:28:50 by blinnea          ###   ########.fr        #
+#    Updated: 2020/04/14 14:20:08 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ CF =		-Wall -Wextra -Werror
 GNL =		get_next_line
 LFT =		libft
 LPS =		libps
-TA =		tskact
 
 # **************************************************************************** #
 #                                 HEADERS                                      #
@@ -44,10 +43,13 @@ LPS_H =		include/$(LPS).h
 # **************************************************************************** #
 #                                 FILENAMES                                    #
 # **************************************************************************** #
-PSFILES =	t_stack t_push_swap solve_push_swap
+PSFILES =	solve_push_swap sps_throw \
+			t_stack stk_push stk_sorted stk_destructor \
+			t_push_swap psw_fill_stack psw_show_stacks
 PSOFILES =	$(patsubst %, obj/$(LPS)/%.o, $(PSFILES))
-GNL_C =		$(GNL)/$(GNL).c
-GNL_O =		$(GNL)/$(GNL).o
+GNLFILES =	$(GNL) gnl_sup
+GNLCFILES =	$(patsubst %, $(GNL)/%.c, $(GNLFILES))
+GNLOFILES =	$(patsubst %, $(GNL)/%.o, $(GNLFILES))
 
 .PHONY:	fclean_$(LFT) $(LFT) clean fclean re all
 
@@ -57,13 +59,18 @@ obj:
 	@mkdir -p obj
 	@mkdir -p obj/$(LPS)
 
-checker: src/checker.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES)
-	@gcc $< $(GNL_C) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
+checker: src/checker.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(GNLOFILES)
+	@gcc $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
 	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
 
-push_swap: src/push_swap.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES)
-	@gcc $< $(GNL_C) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
+push_swap: src/push_swap.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(GNLOFILES)
+	@gcc $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
 	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
+
+# create $(GNLOFILES)
+$(GNL)/%.o: $(GNL)/%.c $(LFT_H) $(GNL)/$(GNL).h $(GNL)/gnl_sup.h
+	@gcc -c $< -o $@ -I  $(LFT)/include -I $(GNL)
+	@echo "$(GREENB) $(DEFAULT)\c"
 
 $(LFT):
 	@make all -C $(LFT)
@@ -81,6 +88,7 @@ fclean: clean
 	@echo "> $(RED)push_swap fclean$(DEFAULT)"
 
 clean: fclean_$(LFT)
+	@rm -f $(GNLOFILES)
 	@rm -f $(PSOFILES) $(TAOFILES) obj/push_swap.o obj/checker.o $(GNL_O)
 	@rm -fd obj/$(LPS) obj/$(TA) obj
 	@echo "> $(YELLOW)push_swap clean$(DEFAULT)"

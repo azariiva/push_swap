@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   gnl_sup.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/21 15:28:36 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 12:40:28 by blinnea          ###   ########.fr       */
+/*   Created: 2020/04/14 12:39:42 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/14 13:25:35 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#ifndef GNL_SUP_H
 
-# define GET_NEXT_LINE_H
+# define GNL_SUP_H
 
-# include "libft.h"
+# include "get_next_line.h"
 
-# define BUFF_SIZE 3
-
-enum
-{
-	ERR = -1,
-	OK = 1,
-	END = 0
-};
-
-int	get_next_line(const int fd, char **line);
+void	ft_strlstdel(t_list **alst);
+int		ft_fdlstdel(t_list **fdlst);
 
 #endif

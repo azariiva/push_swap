@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   stk_destructor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/21 15:28:36 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 12:40:28 by blinnea          ###   ########.fr       */
+/*   Created: 2020/04/14 14:03:27 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/14 14:06:52 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "libps_stack.h"
 
-# define GET_NEXT_LINE_H
-
-# include "libft.h"
-
-# define BUFF_SIZE 3
-
-enum
+static void	del(void *content, size_t size)
 {
-	ERR = -1,
-	OK = 1,
-	END = 0
-};
+	if (size && content)
+		free(content);
+}
 
-int	get_next_line(const int fd, char **line);
-
-#endif
+void		stk_destructor(t_stack **self)
+{
+	if ((*self)->size)
+		ft_lstdel(&((*self)->top), del);
+	free(*self);
+	*self = NULL;
+}

@@ -6,27 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 23:26:01 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/09 14:59:11 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 13:22:54 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static void	ft_strlstdel(t_list **alst)
-{
-	t_list	*ptr;
-	t_list	*todel;
-
-	ptr = *alst;
-	while (ptr)
-	{
-		todel = ptr;
-		ptr = ptr->next;
-		free(todel->content);
-		free(todel);
-	}
-	*alst = NULL;
-}
+#include "gnl_sup.h"
 
 static char	*list_to_str(t_list **list)
 {
@@ -105,22 +90,6 @@ static int	ft_read_fdlst(t_list *fdlst, char **line)
 	return (res);
 }
 
-static void	ft_fdlstdel(t_list **fdlst)
-{
-	t_list	*ptr;
-	t_list	*todel;
-
-	ptr = *fdlst;
-	while (ptr)
-	{
-		todel = ptr;
-		ptr = ptr->next;
-		ft_strlstdel((t_list **)&(todel->content));
-		free(todel);
-	}
-	*fdlst = NULL;
-}
-
 int			get_next_line(const int fd, char **line)
 {
 	static t_list	*fdlst;
@@ -128,10 +97,7 @@ int			get_next_line(const int fd, char **line)
 	int				res;
 
 	if (fd == -1)
-	{
-		ft_fdlstdel(&fdlst);
-		return (END);
-	}
+		return (ft_fdlstdel(&fdlst) | END);
 	ptr = fdlst;
 	while (ptr)
 	{
@@ -143,9 +109,8 @@ int			get_next_line(const int fd, char **line)
 		}
 		ptr = ptr->next;
 	}
-	if (!(ptr = ft_lstnew(NULL, 0)))
+	if (!(ptr = ft_lstnew_ic(fd)))
 		return (ERR);
-	ptr->content_size = fd;
 	ft_lstadd(&fdlst, ptr);
 	if ((res = ft_read_fdlst(fdlst, line)) == ERR)
 		fdlst->content = NULL;

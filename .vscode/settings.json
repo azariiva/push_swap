@@ -9,7 +9,9 @@
         "libft_string.h": "c",
         "libps.h": "c",
         "tuple": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "libps_stack.h": "c",
+        "stdio.h": "c"
     },
     "editor.rulers": [80],
     "workbench.colorCustomizations": {
@@ -17,4 +19,9 @@
     },
     "42header.username": "blinnea",
     "42header.email": "blinnea@student.42.fr",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.renderWhitespace": "all",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
 }
