@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 13:50:21 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 14:12:23 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 19:57:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define LIBPS_STACK_H
 
-#include "libft.h"
+# include "libft.h"
 
 # define ASCENDING 1
 # define DESCENDING 2
@@ -47,4 +47,4 @@ void			stk_destructor(t_stack **self);
 
 t_stack			*new_stack(void);
 
-# endif
+#endif

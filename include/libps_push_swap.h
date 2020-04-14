@@ -6,13 +6,13 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:10:41 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 14:18:24 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 19:57:15 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBPS_PUSH_SWAP
+#ifndef LIBPS_PUSH_SWAP_H
 
-# define LIBPS_PUSH_SWAP
+# define LIBPS_PUSH_SWAP_H
 
 # include "libps_stack.h"
 # include "get_next_line.h"
@@ -21,6 +21,7 @@
 # define WRONG_INPUT -1
 # define OK 0
 # define ALLOCATION_ERROR -2
+# define READ_ERROR -4
 
 typedef struct	s_push_swap
 {
@@ -37,9 +38,9 @@ typedef struct	s_push_swap
 	void	(*destructor)(struct s_push_swap **self);
 }				t_push_swap;
 
-int			psw_fill_stack(t_stack *stk, char **src, int size);
-void		psw_show_stacks(t_push_swap *self);
+int				psw_fill_stack(t_stack *stk, char **src, int size);
+void			psw_show_stacks(t_push_swap *self);
 
-t_push_swap	*new_push_swap(char **string_arr, int size, char const vcq[3]);
+t_push_swap		*new_push_swap(char **string_arr, int size, char const vcq[3]);
 
 #endif

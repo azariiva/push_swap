@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:15:28 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 14:16:15 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 19:23:50 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,51 +46,43 @@ static int		ft_putnbralgn(int n)
 		return (written);
 }
 
+static size_t	help(t_list **ptr, size_t size1, size_t size2)
+{
+	while (size1 > size2)
+	{
+		ft_putnbralgn(((t_ps *)(*ptr)->content)->val);
+		*ptr = (*ptr)->next;
+		size1--;
+		ft_putchar('\n');
+	}
+	return (size2);
+}
+
 void			psw_show_stacks(t_push_swap *self)
 {
 	t_list	*ptr_a;
 	t_list	*ptr_b;
-	size_t	size_a;
-	size_t	size_b;
+	size_t	size;
 
-	if (self)
+	if (!self)
+		return ;
+	ptr_a = self->a->top;
+	ptr_b = self->b->top;
+	self->color ? ft_putstr("\033[32m") : 0;
+	size = (self->a->size > self->b->size ? \
+	help(&ptr_a, self->a->size, self->b->size) : \
+	help(&ptr_b, self->b->size, self->a->size));
+	while (size--)
 	{
-		ptr_a = self->a->top;
-		ptr_b = self->b->top;
-		size_a = self->a->size;
-		size_b = self->b->size;
-		if (self->color)
-			ft_putstr("\033[32m");
-		while (size_a > size_b)
-		{
-			ft_putnbralgn(((t_ps *)ptr_a->content)->val);
-			ptr_a = ptr_a->next;
-			size_a--;
-			ft_putchar('\n');
-		}
-		while (size_b > size_a)
-		{
-			ft_putstr("                     \t");
-			ft_putnbralgn(((t_ps *)ptr_b->content)->val);
-			ptr_b = ptr_b->next;
-			size_b--;
-			ft_putchar('\n');
-		}
-		while (size_a)
-		{
-			ft_putnbralgn(((t_ps *)ptr_a->content)->val);
-			ft_putchar('\t');
-			ft_putnbralgn(((t_ps *)ptr_b->content)->val);
-			ft_putchar('\n');
-			ptr_a = ptr_a->next;
-			ptr_b = ptr_b->next;
-			size_a--;
-		}
-		if (self->color)
-			ft_putstr("\033[34m");
-		ft_putendl("---------------------\t---------------------");
-		ft_putendl("          A           \t          B         \n");
-		if (self->color)
-			ft_putstr("\033[0m");
+		ft_putnbralgn(((t_ps *)ptr_a->content)->val);
+		ft_putchar('\t');
+		ft_putnbralgn(((t_ps *)ptr_b->content)->val);
+		ft_putchar('\n');
+		ptr_a = ptr_a->next;
+		ptr_b = ptr_b->next;
 	}
+	self->color ? ft_putstr("\033[34m") : 0;
+	ft_putendl("---------------------\t---------------------");
+	ft_putendl("          A           \t          B         \n");
+	self->color ? ft_putstr("\033[0m") : 0;
 }

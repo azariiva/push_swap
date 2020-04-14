@@ -11,7 +11,8 @@
         "tuple": "c",
         "types.h": "c",
         "libps_stack.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "libps_push_swap.h": "c"
     },
     "editor.rulers": [80],
     "workbench.colorCustomizations": {

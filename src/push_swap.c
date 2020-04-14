@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/13 10:46:22 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 19:49:50 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	throw_error(void)
 	exit(0);
 }
 
-int	main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_push_swap	*ps;
 

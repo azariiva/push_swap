@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:13:43 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 14:50:10 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 19:47:44 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,51 +36,68 @@ static t_list	*lstnew(int val)
 	return (ft_lstnew(&new, sizeof(new)));
 }
 
+static char		*psw_atoi(char *str, int *res)
+{
+	long long	num;
+	int			sign;
+
+	while (ft_isspace(*str))
+		str++;
+	if (!*str)
+		return (NULL + 1);
+	sign = (*str == '-' ? 1 : 0);
+	str += (*str == '+' || *str == '-');
+	if (!ft_isdigit(*str))
+		return (NULL);
+	num = 0;
+	while (ft_isdigit(*str))
+	{
+		num = num * 10 + *str++ - '0';
+		if ((!sign && num > INT_MAX) || (sign && num - 1 > INT_MAX))
+			return (NULL);
+	}
+	*res = (sign ? -num : num);
+	return (str);
+}
+
+static int		help(t_stack *stk, t_list **ptr, char *str)
+{
+	int	num;
+
+	while (*str)
+	{
+		if (!(str = psw_atoi(str, &num)))
+			return (WRONG_INPUT);
+		else if (str == NULL + 1)
+			break ;
+		if (stk->size++ && stk->top)
+		{
+			if (!((*ptr)->next = lstnew(num)))
+				return (ALLOCATION_ERROR);
+			if ((*ptr = (*ptr)->next) && giveindex(stk->top, *ptr))
+				return (WRONG_INPUT);
+		}
+		else
+		{
+			if (!(stk->top = lstnew(num)))
+				return (ALLOCATION_ERROR);
+			*ptr = stk->top;
+		}
+	}
+	return (OK);
+}
+
 int				psw_fill_stack(t_stack *stk, char **src, int size)
 {
 	int			i;
 	t_list		*ptr;
-	long long	num;
-	int			sign;
-	char		*str;
+	int			rv;
 
 	i = 0;
 	while (i < size)
 	{
-		str = src[i++];
-		while (*str)
-		{
-			while (ft_isspace(*str))
-				++str;
-			if (!*str)
-				break ;
-			sign = (*str == '-' ? 1 : 0);
-			str += (*str == '+' || *str == '-');
-			if (!ft_isdigit(*str))
-				return (WRONG_INPUT);
-			num = 0;
-			while (ft_isdigit(*str))
-			{
-				num = num * 10 + *str++ - '0';
-				if ((!sign && num > INT_MAX) || (sign && num - 1 > INT_MAX))
-					return (WRONG_INPUT);
-			}
-			stk->size++;
-			if (stk->top)
-			{
-				if (!(ptr->next = lstnew(sign ? -num : num)))
-					return (ALLOCATION_ERROR);
-				ptr = ptr->next;
-				if (giveindex(stk->top, ptr))
-					return (WRONG_INPUT);
-			}
-			else
-			{
-				if (!(stk->top = lstnew(sign ? -num : num)))
-					return (ALLOCATION_ERROR);
-				ptr = stk->top;
-			}
-		}
+		if ((rv = help(stk, &ptr, src[i++])) != OK)
+			return (rv);
 	}
 	return (OK);
 }

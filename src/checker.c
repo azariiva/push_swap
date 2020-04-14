@@ -6,12 +6,11 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 11:11:14 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 13:27:55 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 19:56:14 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps.h"
-
 
 static void	throw_error(void)
 {
@@ -29,38 +28,31 @@ static int	procui(t_push_swap *ps)
 		if (rv < 0)
 		{
 			get_next_line(-1, &line);
-			return (-4); // error during reading
+			return (READ_ERROR);
 		}
 		if (ps->make_move(ps, line))
 		{
 			ft_strdel(&line);
 			get_next_line(-1, &line);
-			return (-1); // wrong input
+			return (WRONG_INPUT);
 		}
 		ft_strdel(&line);
 	}
 	get_next_line(-1, &line);
-	return (0); // everything is fine
+	return (OK);
 }
 
-int			main(int ac, char **av)
+static int	keys(char ***ptr, char vcq[3])
 {
-	t_push_swap	*ps;
-	char		**ptr;
-	char		*str;
-	char		vcq[3];
+	char	*str;
 
-	ft_bzero(vcq, sizeof(vcq));
-	if (ac == 1)
-		return (0);
-	ptr = av + 1;
 	while (1)
 	{
-		str = *ptr;
+		str = **ptr;
 		if (*str != '-' || ft_isdigit(str[1]))
-			break;
+			break ;
 		if (!str[1])
-			throw_error();
+			return (WRONG_INPUT);
 		while (*++str)
 		{
 			if (*str == 'v')
@@ -70,10 +62,24 @@ int			main(int ac, char **av)
 			else if (*str == 'a')
 				vcq[2] = 1;
 			else
-				throw_error();
+				return (WRONG_INPUT);
 		}
-		ptr++;
+		(*ptr)++;
 	}
+	return (OK);
+}
+
+int			main(int ac, char **av)
+{
+	t_push_swap	*ps;
+	char		**ptr;
+	char		vcq[3];
+
+	ft_bzero(vcq, sizeof(vcq));
+	if (ac == 1)
+		return (0);
+	ptr = av + 1;
+	keys(&ptr, vcq);
 	if (!(ps = new_push_swap(ptr, ac - (ptr - av), vcq)))
 		throw_error();
 	if (ps->visualize)
