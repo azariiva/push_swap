@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:13:43 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 19:47:44 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/14 20:58:02 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int		help(t_stack *stk, t_list **ptr, char *str)
 	{
 		if (!(str = psw_atoi(str, &num)))
 			return (WRONG_INPUT);
-		else if (ft_strcmp(str, "none"))
+		else if (!ft_strcmp(str, "none"))
 			break ;
 		if (stk->size++ && stk->top)
 		{
