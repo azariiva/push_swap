@@ -44,7 +44,7 @@ static char		*psw_atoi(char *str, int *res)
 	while (ft_isspace(*str))
 		str++;
 	if (!*str)
-		return (NULL + 1);
+		return "none";
 	sign = (*str == '-' ? 1 : 0);
 	str += (*str == '+' || *str == '-');
 	if (!ft_isdigit(*str))
@@ -68,7 +68,7 @@ static int		help(t_stack *stk, t_list **ptr, char *str)
 	{
 		if (!(str = psw_atoi(str, &num)))
 			return (WRONG_INPUT);
-		else if (str == NULL + 1)
+		else if (ft_strcmp(str, "none"))
 			break ;
 		if (stk->size++ && stk->top)
 		{
