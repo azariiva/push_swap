@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 12:37:24 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 13:22:10 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/15 10:53:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ int		ft_fdlstdel(t_list **fdlst)
 		free(todel);
 	}
 	*fdlst = NULL;
+	return (0);
 }

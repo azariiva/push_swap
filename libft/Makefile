@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 17:37:07 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/19 16:25:57 by blinnea          ###   ########.fr        #
+#    Updated: 2020/04/15 10:59:12 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ all: obj $(NAME).a
 $(NAME).a: $(LSTOFILES) $(STROFILES) $(OFILES) $(CTPOFILES) $(IOOFILES)
 	@ar rc $@ $(LSTOFILES) $(STROFILES) $(OFILES) $(CTPOFILES) $(IOOFILES)
 	@ranlib $@
-	@echo "\n> $(GREEN)$(NAME) created$(DEFAULT)"
+	@echo "\n> $(GREEN)$(NAME) was created$(DEFAULT)"
 
 obj:
 	@mkdir -p obj

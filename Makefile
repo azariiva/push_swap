@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/04/14 14:20:08 by blinnea          ###   ########.fr        #
+#    Updated: 2020/04/15 11:10:23 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,14 @@ LPS =		libps
 # **************************************************************************** #
 #                                 HEADERS                                      #
 # **************************************************************************** #
-GNL_H =		$(GNL)/$(GNL).h
+GNL_H =		$(GNL)/include/$(GNL).h
+SUP_H =		$(GNL)/include/gnl_sup.h
 LFT_H =		$(LFT)/include/$(LFT).h
 LPS_H =		include/$(LPS).h
+PSW_H =		include/$(LPS)_push_swap.h
+STK_H =		include/$(LPS)_stack.h
+
+ALL_H = $(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
 
 # **************************************************************************** #
 #                                 FILENAMES                                    #
@@ -48,49 +53,60 @@ PSFILES =	solve_push_swap sps_throw \
 			t_push_swap psw_fill_stack psw_show_stacks
 PSOFILES =	$(patsubst %, obj/$(LPS)/%.o, $(PSFILES))
 GNLFILES =	$(GNL) gnl_sup
-GNLCFILES =	$(patsubst %, $(GNL)/%.c, $(GNLFILES))
-GNLOFILES =	$(patsubst %, $(GNL)/%.o, $(GNLFILES))
+GNLCFILES =	$(patsubst %, $(GNL)/src/%.c, $(GNLFILES))
+GNLOFILES =	$(patsubst %, obj/$(GNL)/%.o, $(GNLFILES))
 
-.PHONY:	fclean_$(LFT) $(LFT) clean fclean re all
+.PHONY:	obj $(LFT) clean fclean re all
 
-all: checker push_swap
+all: obj $(LFT) checker push_swap
+	@echo "\n> $(GREEN)push_swap was created$(DEFAULT)"
 
+# create obj directory
 obj:
 	@mkdir -p obj
 	@mkdir -p obj/$(LPS)
+	@mkdir -p obj/$(GNL)
 
-checker: src/checker.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(GNLOFILES)
-	@gcc $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
-	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
+# create checker executable
+checker: obj/checker.o $(PSOFILES) $(GNLOFILES)
+	@$(CC) $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@
 
-push_swap: src/push_swap.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(GNLOFILES)
-	@gcc $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
-	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
+# create push_swap executable
+push_swap: obj/push_swap.o $(PSOFILES) $(GNLOFILES)
+	@$(CC) $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@
+
+# create push_swap.o
+obj/push_swap.o: src/push_swap.c $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
+	@echo "$(GREENB) $(DEFAULT)\c"
+
+# create checker.o
+obj/checker.o: src/checker.c $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
+	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create $(GNLOFILES)
-$(GNL)/%.o: $(GNL)/%.c $(LFT_H) $(GNL)/$(GNL).h $(GNL)/gnl_sup.h
-	@gcc -c $< -o $@ -I  $(LFT)/include -I $(GNL)
+obj/$(GNL)/%.o: $(GNL)/src/%.c $(LFT_H) $(GNL_H) $(SUP_H)
+	@$(CC) $(CF) -c $< -o $@ -I  $(LFT)/include -I $(GNL)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
-
-$(LFT):
-	@make all -C $(LFT)
-
-fclean_$(LFT):
-	@make fclean -C $(LFT)
 
 # create $(PSOFILES)
-obj/$(LPS)/%.o: src/$(LPS)/%.c obj $(LPS_H) $(LFT_H) $(LFT) $(GNL_H) $(GNL_C)
-	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)
+obj/$(LPS)/%.o: src/$(LPS)/%.c $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
+
+# create libft.a
+$(LFT):
+	@make all -C $(LFT)
 
 fclean: clean
 	@rm -f checker push_swap
 	@echo "> $(RED)push_swap fclean$(DEFAULT)"
 
-clean: fclean_$(LFT)
-	@rm -f $(GNLOFILES)
-	@rm -f $(PSOFILES) $(TAOFILES) obj/push_swap.o obj/checker.o $(GNL_O)
-	@rm -fd obj/$(LPS) obj/$(TA) obj
+clean:
+	@make fclean -C $(LFT)
+	@rm -f $(PSOFILES) $(GNLOFILES) obj/push_swap.o obj/checker.o
+	@rm -fd obj/$(LPS) obj/$(GNL) obj
 	@echo "> $(YELLOW)push_swap clean$(DEFAULT)"
 
 re: fclean all
