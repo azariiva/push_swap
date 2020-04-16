@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:13:43 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 20:58:02 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/16 14:16:33 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char		*psw_atoi(char *str, int *res)
 	while (ft_isspace(*str))
 		str++;
 	if (!*str)
-		return "none";
+		return ("none");
 	sign = (*str == '-' ? 1 : 0);
 	str += (*str == '+' || *str == '-');
 	if (!ft_isdigit(*str))
