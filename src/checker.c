@@ -5,18 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/19 15:01:51 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/19 15:01:54 by blinnea          ###   ########.fr       */
+/*   Created: 2020/04/09 11:11:14 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/14 19:56:14 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps.h"
-#include "get_next_line.h"
-
-static int	cmp(size_t a, size_t b)
-{
-	return (a > b);
-}
 
 static void	throw_error(void)
 {
@@ -24,39 +18,79 @@ static void	throw_error(void)
 	exit(0);
 }
 
-static void	throw_unexpected(void)
+static int	procui(t_push_swap *ps)
 {
-	ft_putendl_fd("Unexpected Error", STDERR_FILENO);
-	exit(-1);
+	char	*line;
+	ssize_t	rv;
+
+	while ((rv = get_next_line(STDIN_FILENO, &line)))
+	{
+		if (rv < 0)
+		{
+			get_next_line(-1, &line);
+			return (READ_ERROR);
+		}
+		if (ps->make_move(ps, line))
+		{
+			ft_strdel(&line);
+			get_next_line(-1, &line);
+			return (WRONG_INPUT);
+		}
+		ft_strdel(&line);
+	}
+	get_next_line(-1, &line);
+	return (OK);
+}
+
+static int	keys(char ***ptr, char vcq[3])
+{
+	char	*str;
+
+	while (1)
+	{
+		str = **ptr;
+		if (*str != '-' || ft_isdigit(str[1]))
+			break ;
+		if (!str[1])
+			return (WRONG_INPUT);
+		while (*++str)
+		{
+			if (*str == 'v')
+				vcq[0] = 1;
+			else if (*str == 'c')
+				vcq[1] = 1;
+			else if (*str == 'a')
+				vcq[2] = 1;
+			else
+				return (WRONG_INPUT);
+		}
+		(*ptr)++;
+	}
+	return (OK);
 }
 
 int			main(int ac, char **av)
 {
-	t_list	*a;
-	t_list	*b;
-	int		pui_rv;
-	int		debug;
+	t_push_swap	*ps;
+	char		**ptr;
+	char		vcq[3];
 
-	debug = 0;
+	ft_bzero(vcq, sizeof(vcq));
 	if (ac == 1)
 		return (0);
-	if (!(a = ps_crtlst(av + 1, ac - 1)))
+	ptr = av + 1;
+	keys(&ptr, vcq);
+	if (!(ps = new_push_swap(ptr, ac - (ptr - av), vcq)))
 		throw_error();
-	b = NULL;
-	//ps_debuginfo(a, b);
-	if ((pui_rv = ps_procui(&a, &b, debug)) == 0)
+	if (ps->visualize)
+		ps->show_stacks(ps);
+	if (procui(ps))
 	{
-		if (ps_lstsorted(a, cmp) && b == NULL)
-			ft_putendl("OK");
-		else
-			ft_putendl("KO");
-
-	}
-	else if (pui_rv == -1)
+		ps->destructor(&ps);
 		throw_error();
-	if (pui_rv == -2)
-		throw_unexpected();
-	ft_lstdel(&a, ps_del);
-	ft_lstdel(&b, ps_del);
+	}
+	ft_putendl((ps->b->size == 0 && ps->a->sorted(ps->a) == ASCENDING) ? \
+	"OK" : "KO");
+	ps->destructor(&ps);
 	return (0);
 }

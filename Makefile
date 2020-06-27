@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/03/19 16:25:38 by blinnea          ###   ########.fr        #
+#    Updated: 2020/04/15 11:10:23 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,67 +32,81 @@ CF =		-Wall -Wextra -Werror
 GNL =		get_next_line
 LFT =		libft
 LPS =		libps
-TA =		tskact
 
 # **************************************************************************** #
 #                                 HEADERS                                      #
 # **************************************************************************** #
-GNL_H =		$(GNL)/$(GNL).h
+GNL_H =		$(GNL)/include/$(GNL).h
+SUP_H =		$(GNL)/include/gnl_sup.h
 LFT_H =		$(LFT)/include/$(LFT).h
 LPS_H =		include/$(LPS).h
+PSW_H =		include/$(LPS)_push_swap.h
+STK_H =		include/$(LPS)_stack.h
+
+ALL_H = $(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
 
 # **************************************************************************** #
 #                                 FILENAMES                                    #
 # **************************************************************************** #
-PSFILES =	ps_del ps_lstnew ps_chcklst ps_atoi ps_crtlst ps_procui ps_print \
-			ps_debuginfo ps_lstsorted ps_giveindex ps_dact ps_showstcks
-TAFILES =	ps_sa ps_sb ps_ss ps_pa ps_pb ps_ra ps_rb ps_rr ps_rra ps_rrb \
-			ps_rrr ps_showact
+PSFILES =	solve_push_swap sps_throw \
+			t_stack stk_push stk_sorted stk_destructor \
+			t_push_swap psw_fill_stack psw_show_stacks
 PSOFILES =	$(patsubst %, obj/$(LPS)/%.o, $(PSFILES))
-TAOFILES =	$(patsubst %, obj/$(TA)/%.o, $(TAFILES))
-GNL_C =		$(GNL)/$(GNL).c
-GNL_O =		$(GNL)/$(GNL).o
+GNLFILES =	$(GNL) gnl_sup
+GNLCFILES =	$(patsubst %, $(GNL)/src/%.c, $(GNLFILES))
+GNLOFILES =	$(patsubst %, obj/$(GNL)/%.o, $(GNLFILES))
 
-.PHONY:	fclean_$(LFT) $(LFT) clean fclean re all
+.PHONY:	obj $(LFT) clean fclean re all
 
-all: checker push_swap
+all: obj $(LFT) checker push_swap
+	@echo "\n> $(GREEN)push_swap was created$(DEFAULT)"
 
+# create obj directory
 obj:
 	@mkdir -p obj
 	@mkdir -p obj/$(LPS)
-	@mkdir -p obj/$(TA)
+	@mkdir -p obj/$(GNL)
 
-checker: src/checker.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(TAOFILES)
-	@gcc $< $(GNL_C) $(PSOFILES) $(TAOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
-	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
+# create checker executable
+checker: obj/checker.o $(PSOFILES) $(GNLOFILES)
+	@$(CC) $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@
 
-push_swap: src/push_swap.c $(LFT_H) $(LPS_H) $(LFT) $(PSOFILES) $(TAOFILES)
-	@gcc $< $(GNL_C) $(PSOFILES) $(TAOFILES) -L$(LFT) -lft -o $@ -I $(GNL) -I $(LFT)/include -I include
-	@echo "\n> $(GREEN)$@ created$(DEFAULT)"
+# create push_swap executable
+push_swap: obj/push_swap.o $(PSOFILES) $(GNLOFILES)
+	@$(CC) $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@
 
-$(LFT):
-	@make all -C $(LFT)
+# create push_swap.o
+obj/push_swap.o: src/push_swap.c $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
+	@echo "$(GREENB) $(DEFAULT)\c"
 
-fclean_$(LFT):
-	@make fclean -C $(LFT)
+# create checker.o
+obj/checker.o: src/checker.c $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
+	@echo "$(GREENB) $(DEFAULT)\c"
+
+# create $(GNLOFILES)
+obj/$(GNL)/%.o: $(GNL)/src/%.c $(LFT_H) $(GNL_H) $(SUP_H)
+	@$(CC) $(CF) -c $< -o $@ -I  $(LFT)/include -I $(GNL)/include
+	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create $(PSOFILES)
-obj/$(LPS)/%.o: src/$(LPS)/%.c obj $(LPS_H) $(LFT_H) $(LFT) $(GNL_H) $(GNL_C)
-	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)
+obj/$(LPS)/%.o: src/$(LPS)/%.c $(ALL_H)
+	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
-# create $(TAOFILES)
-obj/$(TA)/%.o: src/$(TA)/%.c obj $(LPS_H) $(LFT_H) $(LFT) $(GNL_H) $(GNL_C)
-	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)
-	@echo "$(GREENB) $(DEFAULT)\c"
+# create libft.a
+$(LFT):
+	@make all -C $(LFT)
 
 fclean: clean
 	@rm -f checker push_swap
 	@echo "> $(RED)push_swap fclean$(DEFAULT)"
 
-clean: fclean_$(LFT)
-	@rm -f $(PSOFILES) $(TAOFILES) obj/push_swap.o obj/checker.o $(GNL_O)
-	@rm -fd obj/$(LPS) obj/$(TA) obj
+clean:
+	@make fclean -C $(LFT)
+	@rm -f $(PSOFILES) $(GNLOFILES) obj/push_swap.o obj/checker.o
+	@rm -fd obj/$(LPS) obj/$(GNL) obj
 	@echo "> $(YELLOW)push_swap clean$(DEFAULT)"
 
 re: fclean all

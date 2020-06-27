@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_rrb.c                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 19:32:22 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 17:01:08 by blinnea          ###   ########.fr       */
+/*   Created: 2019/09/21 15:28:36 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/14 12:40:28 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libps.h"
+#ifndef GET_NEXT_LINE_H
 
-void	ps_rrb(t_psab *stacks)
+# define GET_NEXT_LINE_H
+
+# include "libft.h"
+
+# define BUFF_SIZE 3
+
+enum
 {
-	ft_lstshftdown(&(stacks->b));
-	ps_showact("rrb", stacks);
-}
+	ERR = -1,
+	OK = 1,
+	END = 0
+};
+
+int	get_next_line(const int fd, char **line);
+
+#endif

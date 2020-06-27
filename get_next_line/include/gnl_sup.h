@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_ra.c                                            :+:      :+:    :+:   */
+/*   gnl_sup.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 19:28:44 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 16:57:45 by blinnea          ###   ########.fr       */
+/*   Created: 2020/04/14 12:39:42 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/14 13:25:35 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libps.h"
+#ifndef GNL_SUP_H
 
-void	ps_ra(t_psab *stacks)
-{
-	ft_lstshftup(&(stacks->a));
-	ps_showact("ra", stacks);
-}
+# define GNL_SUP_H
+
+# include "get_next_line.h"
+
+void	ft_strlstdel(t_list **alst);
+int		ft_fdlstdel(t_list **fdlst);
+
+#endif

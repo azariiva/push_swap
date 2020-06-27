@@ -1,24 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_chcklst.c                                       :+:      :+:    :+:   */
+/*   gnl_sup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/12 19:52:56 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/13 14:52:49 by blinnea          ###   ########.fr       */
+/*   Created: 2020/04/14 12:37:24 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/15 10:53:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libps.h"
+#include "get_next_line.h"
 
-int	ps_chcklst(t_list *lst, int val)
+void	ft_strlstdel(t_list **alst)
 {
-	while (lst)
+	t_list	*ptr;
+	t_list	*todel;
+
+	ptr = *alst;
+	while (ptr)
 	{
-		if (((t_ps *)(lst->content))->val == val)
-			return (1);
-		lst = lst->next;
+		todel = ptr;
+		ptr = ptr->next;
+		free(todel->content);
+		free(todel);
 	}
+	*alst = NULL;
+}
+
+int		ft_fdlstdel(t_list **fdlst)
+{
+	t_list	*ptr;
+	t_list	*todel;
+
+	ptr = *fdlst;
+	while (ptr)
+	{
+		todel = ptr;
+		ptr = ptr->next;
+		ft_strlstdel((t_list **)&(todel->content));
+		free(todel);
+	}
+	*fdlst = NULL;
 	return (0);
 }

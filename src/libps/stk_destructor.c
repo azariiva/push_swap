@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_rb.c                                            :+:      :+:    :+:   */
+/*   stk_destructor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 19:28:47 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/15 16:56:22 by blinnea          ###   ########.fr       */
+/*   Created: 2020/04/14 14:03:27 by blinnea           #+#    #+#             */
+/*   Updated: 2020/04/15 10:28:03 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libps.h"
+#include "libps_stack.h"
 
-void	ps_rb(t_psab *stacks)
+static void	del(void *content, size_t size)
 {
-	ft_lstshftup(&(stacks->b));
-	ps_showact("rb", stacks);
+	if (size && content)
+		free(content);
+}
+
+void		stk_destructor(t_stack **self)
+{
+	if ((*self)->size)
+		ft_lstdel(&((*self)->top), del);
+	free(*self);
+	*self = NULL;
 }

@@ -6,27 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 23:26:01 by blinnea           #+#    #+#             */
-/*   Updated: 2020/03/11 23:51:33 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/04/15 10:35:57 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static void	ft_strlstdel(t_list **alst)
-{
-	t_list	*ptr;
-	t_list	*todel;
-
-	ptr = *alst;
-	while (ptr)
-	{
-		todel = ptr;
-		ptr = ptr->next;
-		free(todel->content);
-		free(todel);
-	}
-	*alst = NULL;
-}
+#include "gnl_sup.h"
 
 static char	*list_to_str(t_list **list)
 {
@@ -111,6 +96,8 @@ int			get_next_line(const int fd, char **line)
 	t_list			*ptr;
 	int				res;
 
+	if (fd == -1)
+		return (ft_fdlstdel(&fdlst) | END);
 	ptr = fdlst;
 	while (ptr)
 	{
@@ -122,9 +109,8 @@ int			get_next_line(const int fd, char **line)
 		}
 		ptr = ptr->next;
 	}
-	if (!(ptr = ft_lstnew(NULL, 0)))
+	if (!(ptr = ft_lstnew_ic(fd)))
 		return (ERR);
-	ptr->content_size = fd;
 	ft_lstadd(&fdlst, ptr);
 	if ((res = ft_read_fdlst(fdlst, line)) == ERR)
 		fdlst->content = NULL;
