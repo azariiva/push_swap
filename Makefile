@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/10 20:05:31 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/10 20:14:51 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,13 @@ ALL_H = $(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
 PSFILES =	$(shell find src/libps -name '*.c')
 PSOFILES =	$(addprefix obj/, $(PSFILES:src/libps/%.c=%.o))
 
-.PHONY: $(LFT) clean fclean re all
+.PHONY: dir $(LFT) clean fclean re all
 
-all: checker push_swap
-	@echo "\n> $(GREEN)push_swap was created$(DEFAULT)"
+all: dir checker push_swap
+	@echo "\n> $(GREEN)push_swap & checker were created$(DEFAULT)"
 
 # create obj directory
-obj:
+dir:
 	@mkdir -p obj
 
 # create checker executable
@@ -65,17 +65,17 @@ push_swap: obj/push_swap.o $(PSOFILES) $(LFT)
 	@$(CC) $< $(PSOFILES) -L$(LFT) -lft -o $@
 
 # create push_swap.o
-obj/push_swap.o: src/push_swap.c obj $(ALL_H)
+obj/push_swap.o: src/push_swap.c $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create checker.o
-obj/checker.o: src/checker.c obj $(ALL_H)
+obj/checker.o: src/checker.c $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create $(PSOFILES)
-obj/%.o: src/libps/%.c obj $(ALL_H)
+obj/%.o: src/libps/%.c $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
