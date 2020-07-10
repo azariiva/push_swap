@@ -354,3 +354,5 @@ MigrationBackup/
 *.a
 *.out
 .DS_Store
+checker
+push_swap

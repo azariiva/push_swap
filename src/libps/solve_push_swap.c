@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 13:19:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/10 19:49:20 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/10 19:58:01 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,28 @@ static void	push_swap(t_push_swap *ps)
 	}
 }
 
-static void	crutch(t_push_swap *ps)
+static void	i_love_making_my_code_unreadable(t_push_swap *ps)
+{
+	if (((t_ps *)ps->a->top->content)->index == ps->a->minimum)
+	{
+		ps->make_move(ps, "sa");
+		ps->make_move(ps, "ra");
+	}
+	else if (((t_ps *)ps->a->top->content)->index == ps->a->maximum)
+		ps->make_move(ps, "ra");
+	else if (((t_ps *)ps->a->top->next->content)->index == ps->a->minimum)
+		ps->make_move(ps, "sa");
+	else
+		ps->make_move(ps, "rra");
+}
+
+static void	and_you_cant_judge_me(t_push_swap *ps)
 {
 	int	order;
 
 	if (ps->a->size < 3)
 	{
-		if (ps->a->sorted(ps->a) != ASCENDING)
-			ps->make_move(ps, "sa");
+		(ps->a->sorted(ps->a) != ASCENDING ? ps->make_move(ps, "sa") : 0);
 		return ;
 	}
 	if ((order = ps->a->sorted(ps->a)) == DESCENDING)
@@ -46,19 +60,7 @@ static void	crutch(t_push_swap *ps)
 		ps->make_move(ps, "rra");
 	}
 	else if (order == UNSORTED)
-	{
-		if (((t_ps *)ps->a->top->content)->index == ps->a->minimum)
-		{
-			ps->make_move(ps, "sa");
-			ps->make_move(ps, "ra");
-		}
-		else if (((t_ps *)ps->a->top->content)->index == ps->a->maximum)
-			ps->make_move(ps, "ra");
-		else if (((t_ps *)ps->a->top->next->content)->index == ps->a->minimum)
-			ps->make_move(ps, "sa");
-		else
-			ps->make_move(ps, "rra");
-	}
+		i_love_making_my_code_unreadable(ps);
 }
 
 void		solve_push_swap(t_push_swap *ps)
@@ -67,20 +69,18 @@ void		solve_push_swap(t_push_swap *ps)
 
 	if (ps->a->size <= 3)
 	{
-		crutch(ps);
+		and_you_cant_judge_me(ps);
 		return ;
 	}
-	thrown = throw_right_median(ps, (ps->a->maximum + ps->a->minimum + 1) / 2);
-	if (thrown <= 2)
+	if ((thrown = throw_right_median(
+		ps, (ps->a->maximum + ps->a->minimum + 1) / 2)) <= 2)
 	{
-		crutch(ps);
+		and_you_cant_judge_me(ps);
 		if (((t_ps *)ps->b->top->content)->index == ps->b->minimum &&
 		ps->b->top->next)
 			ps->make_move(ps, "sb");
-		if (ps->b->top)
-			ps->make_move(ps, "pa");
-		if (ps->b->top)
-			ps->make_move(ps, "pa");
+		(ps->b->top ? ps->make_move(ps, "pa") : 0);
+		(ps->b->top ? ps->make_move(ps, "pa") : 0);
 		return ;
 	}
 	push_swap(ps);

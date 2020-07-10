@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/10 18:35:51 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/10 20:05:31 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,56 +30,52 @@ CF =		-Wall -Wextra -Werror
 #                               ABBREVIATIONS                                  #
 # **************************************************************************** #
 LFT =		libft
-LPS =		libps
 
 # **************************************************************************** #
 #                                 HEADERS                                      #
 # **************************************************************************** #
 LFT_H =		$(LFT)/include/$(LFT).h
-LPS_H =		include/$(LPS).h
-PSW_H =		include/$(LPS)_push_swap.h
-STK_H =		include/$(LPS)_stack.h
+LPS_H =		include/libps.h
+PSW_H =		include/libps_push_swap.h
+STK_H =		include/libps_stack.h
 
 ALL_H = $(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
 
 # **************************************************************************** #
 #                                 FILENAMES                                    #
 # **************************************************************************** #
-PSFILES =	solve_push_swap sps_throw \
-			t_stack stk_push stk_sorted stk_destructor \
-			t_push_swap psw_fill_stack psw_show_stacks
-PSOFILES =	$(patsubst %, obj/$(LPS)/%.o, $(PSFILES))
+PSFILES =	$(shell find src/libps -name '*.c')
+PSOFILES =	$(addprefix obj/, $(PSFILES:src/libps/%.c=%.o))
 
-.PHONY:	obj $(LFT) clean fclean re all
+.PHONY: $(LFT) clean fclean re all
 
-all: obj $(LFT) checker push_swap
+all: checker push_swap
 	@echo "\n> $(GREEN)push_swap was created$(DEFAULT)"
 
 # create obj directory
 obj:
 	@mkdir -p obj
-	@mkdir -p obj/$(LPS)
 
 # create checker executable
-checker: obj/checker.o $(PSOFILES) $(LFT)/$(LFT).a
+checker: obj/checker.o $(PSOFILES) $(LFT)
 	@$(CC) $< $(PSOFILES) -L$(LFT) -lft -o $@
 
 # create push_swap executable
-push_swap: obj/push_swap.o $(PSOFILES) $(LFT)/$(LFT).a
-	@$(CC) $< $(GNLOFILES) $(PSOFILES) -L$(LFT) -lft -o $@
+push_swap: obj/push_swap.o $(PSOFILES) $(LFT)
+	@$(CC) $< $(PSOFILES) -L$(LFT) -lft -o $@
 
 # create push_swap.o
-obj/push_swap.o: src/push_swap.c $(ALL_H)
+obj/push_swap.o: src/push_swap.c obj $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create checker.o
-obj/checker.o: src/checker.c $(ALL_H)
+obj/checker.o: src/checker.c obj $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I $(GNL)/include -I include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
 # create $(PSOFILES)
-obj/$(LPS)/%.o: src/$(LPS)/%.c $(ALL_H)
+obj/%.o: src/libps/%.c obj $(ALL_H)
 	@$(CC) $(CF) -c $< -o $@ -I $(LFT)/include -I include -I $(GNL)/include
 	@echo "$(GREENB) $(DEFAULT)\c"
 
@@ -94,7 +90,7 @@ fclean: clean
 clean:
 	@make fclean -C $(LFT)
 	@rm -f $(PSOFILES) obj/push_swap.o obj/checker.o
-	@rm -fd obj/$(LPS) obj
+	@rm -fd obj
 	@echo "> $(YELLOW)push_swap clean$(DEFAULT)"
 
 re: fclean all
