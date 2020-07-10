@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 13:23:12 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 14:07:19 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:37:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_stack		*new_stack(void)
 {
 	t_stack	*new;
 
-	if (!(new = (t_stack *)malloc(sizeof(*new))))
+	if (!(new = (t_stack *)ft_memalloc(sizeof(t_stack))))
 		return (NULL);
 	new->size = 0;
 	new->top = NULL;

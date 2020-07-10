@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:10:41 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 19:57:15 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:36:18 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define LIBPS_PUSH_SWAP_H
 
 # include "libps_stack.h"
-# include "get_next_line.h"
+# include "libft.h"
 # include <limits.h>
 
 # define WRONG_INPUT -1

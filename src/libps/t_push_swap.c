@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 13:42:55 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 14:56:09 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:39:16 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void		destructor(t_push_swap **self)
 		(*self)->a->destructor(&((*self)->a));
 	if ((*self)->b)
 		(*self)->b->destructor(&((*self)->b));
-	free(*self);
+	ft_memdel((void **)self);
 	*self = NULL;
 }
 
@@ -78,7 +78,7 @@ t_push_swap		*new_push_swap(char **arr, int size, char const vcq[3])
 {
 	t_push_swap	*new;
 
-	if (!(new = calloc(1, sizeof(*new))))
+	if (!(new = (t_push_swap *)ft_memalloc(sizeof(t_push_swap))))
 		return (NULL);
 	if (!(new->a = new_stack()) || psw_fill_stack(new->a, arr, size) || \
 	!(new->b = new_stack()))

@@ -6,11 +6,13 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/04/14 19:49:50 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/10 19:34:21 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 static void	throw_error(void)
 {
