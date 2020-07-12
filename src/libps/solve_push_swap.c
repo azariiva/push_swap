@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 13:19:27 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/10 19:58:01 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/12 15:21:54 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void		solve_push_swap(t_push_swap *ps)
 {
 	size_t	thrown;
 
+	if (ps->a->sorted(ps->a) & ASCENDING)
+		return ;
 	if (ps->a->size <= 3)
 	{
 		and_you_cant_judge_me(ps);
