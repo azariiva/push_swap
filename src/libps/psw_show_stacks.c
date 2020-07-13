@@ -6,12 +6,13 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:15:28 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/10 18:39:36 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/13 20:03:02 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps_push_swap.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 static void		ftpna_algn(char *buf, char *ptr)
 {

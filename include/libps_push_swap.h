@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 14:10:41 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/10 18:36:18 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/13 19:29:58 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_push_swap
 	int		visualize:1;
 	int		color:1;
 	int		action:1;
+	int		step:1;
 
 	void	(*show_stacks)(struct s_push_swap *self);
 	int		(*make_move)(struct s_push_swap *self, char const *action);

@@ -356,3 +356,4 @@ MigrationBackup/
 .DS_Store
 checker
 push_swap
+.vscode

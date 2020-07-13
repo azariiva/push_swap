@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 11:11:14 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/10 18:37:24 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/13 20:08:28 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,54 +44,61 @@ static int	procui(t_push_swap *ps)
 	return (OK);
 }
 
-static int	keys(char ***ptr, char vcq[3])
+int			parse_av(int ac, char **av, char vcqs[4])
 {
-	char	*str;
+	char opt;
 
-	while (1)
+	ft_bzero(vcqs, 4 * sizeof(char));
+	while ((opt = ft_getopt(ac, av, FLAGS)) != -1)
 	{
-		str = **ptr;
-		if (*str != '-' || ft_isdigit(str[1]))
-			break ;
-		if (!str[1])
-			return (WRONG_INPUT);
-		while (*++str)
+		if (opt == 'v')
+			vcqs[0] = 1;
+		else if (opt == 'c')
+			vcqs[1] = 1;
+		else if (opt == 'q')
+			vcqs[2] = 1;
+		else if (opt == 's')
+			vcqs[3] = 1;
+		else if (opt == 'h')
 		{
-			if (*str == 'v')
-				vcq[0] = 1;
-			else if (*str == 'c')
-				vcq[1] = 1;
-			else if (*str == 'a')
-				vcq[2] = 1;
-			else
-				return (WRONG_INPUT);
+			ft_printf("%s", HELP_MSG);
+			return (-1);
 		}
-		(*ptr)++;
+		else
+		{
+			ft_printf(ILLEGAL_OPT, g_optopt);
+			return (-1);
+		}
 	}
-	return (OK);
+	return (0);
 }
 
 int			main(int ac, char **av)
 {
 	t_push_swap	*ps;
-	char		**ptr;
-	char		vcq[3];
+	char		vcqs[4];
 
-	ft_bzero(vcq, sizeof(vcq));
 	if (ac == 1)
 		return (0);
-	ptr = av + 1;
-	keys(&ptr, vcq);
-	if (!(ps = new_push_swap(ptr, ac - (ptr - av), vcq)))
+	if (parse_av(ac, av, vcqs) == -1)
+		return (0);
+	if (!(ps = new_push_swap(av + g_optind, ac - g_optind, vcqs)))
 		throw_error();
 	if (ps->visualize)
+	{
 		ps->show_stacks(ps);
+		if (ps->step)
+		{
+			usleep(200000);
+			system("clear");
+		}
+	}
 	if (procui(ps))
 	{
 		ps->destructor(&ps);
 		throw_error();
 	}
-	ft_putendl((ps->b->size == 0 && ps->a->sorted(ps->a) == ASCENDING) ? \
+	ft_putendl((ps->b->size == 0 && ps->a->sorted(ps->a) & ASCENDING) ? \
 	"OK" : "KO");
 	ps->destructor(&ps);
 	return (0);

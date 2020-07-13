@@ -6,11 +6,13 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 13:42:55 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/10 18:39:16 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/13 20:04:48 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps_push_swap.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 static int		help_make_move(t_push_swap *self, char const *action)
 {
@@ -61,6 +63,11 @@ static int		make_move(t_push_swap *self, char const *action)
 	}
 	if (self->visualize)
 		psw_show_stacks(self);
+	if (self->step)
+	{
+		usleep(200000);
+		system("clear");
+	}
 	return (OK);
 }
 
@@ -74,7 +81,7 @@ static void		destructor(t_push_swap **self)
 	*self = NULL;
 }
 
-t_push_swap		*new_push_swap(char **arr, int size, char const vcq[3])
+t_push_swap		*new_push_swap(char **arr, int size, char const vcqs[4])
 {
 	t_push_swap	*new;
 
@@ -89,9 +96,10 @@ t_push_swap		*new_push_swap(char **arr, int size, char const vcq[3])
 	new->a->maximum = new->a->size;
 	new->a->minimum = 1;
 	new->sorted = 0;
-	new->visualize = vcq[0];
-	new->color = vcq[1];
-	new->action = vcq[2];
+	new->visualize = vcqs[0];
+	new->color = vcqs[1];
+	new->action = vcqs[2];
+	new->step = vcqs[3];
 	new->show_stacks = psw_show_stacks;
 	new->make_move = make_move;
 	new->destructor = destructor;
