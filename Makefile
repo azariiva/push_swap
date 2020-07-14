@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/14 14:28:39 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/14 20:55:47 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,12 +57,12 @@ dir:
 	@mkdir -p obj
 
 # create checker executable
-checker: obj/checker.o $(PSOFILES) $(LFT)
-	@$(CC) $< $(PSOFILES) -L$(LFT) -lft -o $@
+checker: dir obj/checker.o $(PSOFILES) $(LFT)
+	@$(CC) obj/checker.o $(PSOFILES) -L$(LFT) -lft -o $@
 
 # create push_swap executable
-push_swap: obj/push_swap.o $(PSOFILES) $(LFT)
-	@$(CC) $< $(PSOFILES) -L$(LFT) -lft -o $@
+push_swap: dir obj/push_swap.o $(PSOFILES) $(LFT)
+	@$(CC) obj/push_swap.o $(PSOFILES) -L$(LFT) -lft -o $@
 
 # create push_swap.o
 obj/push_swap.o: src/push_swap.c $(ALL_H)
