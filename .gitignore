@@ -357,3 +357,5 @@ MigrationBackup/
 checker
 push_swap
 .vscode
+test_logs
+*.dSYM

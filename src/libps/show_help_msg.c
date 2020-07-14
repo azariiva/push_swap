@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   show_help_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/14 12:50:50 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/14 12:39:41 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/14 12:44:21 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps.h"
-#include <unistd.h>
-#include <stdlib.h>
 
-static void	throw_error(void)
+void			show_help_msg(void)
 {
-	ft_putendl_fd("Error", STDERR_FILENO);
-	exit(0);
-}
-
-int			main(int ac, char **av)
-{
-	t_push_swap	*ps;
-
-	if (ac == 1)
-		return (0);
-	if (!(ps = new_push_swap(av + 1, ac - 1, "\0\0\1")))
-		throw_error();
-	solve_push_swap(ps);
-	ps->destructor(&ps);
-	return (0);
+	ft_printf("Usage: checker [OPTION]... [NUMBERS]...\n\
+	-v\t show stacks after each action\n\
+	-c\t colorize stacks\n\
+	-q\t show every action\n\
+	-h\t display this help and exit\n\
+	-s\t clear console after each action\n");
 }

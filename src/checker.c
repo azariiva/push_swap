@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 11:11:14 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/13 20:08:28 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/14 12:49:17 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int			parse_av(int ac, char **av, char vcqs[4])
 			vcqs[3] = 1;
 		else if (opt == 'h')
 		{
-			ft_printf("%s", HELP_MSG);
+			show_help_msg();
 			return (-1);
 		}
 		else
 		{
-			ft_printf(ILLEGAL_OPT, g_optopt);
+			show_illegal_opt(g_optopt);
 			return (-1);
 		}
 	}
@@ -87,11 +87,7 @@ int			main(int ac, char **av)
 	if (ps->visualize)
 	{
 		ps->show_stacks(ps);
-		if (ps->step)
-		{
-			usleep(200000);
-			system("clear");
-		}
+		clear_if_step(ps);
 	}
 	if (procui(ps))
 	{

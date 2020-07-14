@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   clear_if_step.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/12 17:44:57 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/14 12:50:50 by blinnea          ###   ########.fr       */
+/*   Created: 2020/07/14 12:47:20 by blinnea           #+#    #+#             */
+/*   Updated: 2020/07/14 12:48:59 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static void	throw_error(void)
+void	clear_if_step(t_push_swap *ps)
 {
-	ft_putendl_fd("Error", STDERR_FILENO);
-	exit(0);
-}
-
-int			main(int ac, char **av)
-{
-	t_push_swap	*ps;
-
-	if (ac == 1)
-		return (0);
-	if (!(ps = new_push_swap(av + 1, ac - 1, "\0\0\1")))
-		throw_error();
-	solve_push_swap(ps);
-	ps->destructor(&ps);
-	return (0);
+	if (ps->step)
+	{
+		usleep(200000);
+		system("clear");
+	}
 }

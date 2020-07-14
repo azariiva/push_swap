@@ -6,12 +6,12 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 13:42:55 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/13 20:04:48 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/14 12:50:22 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libps_push_swap.h"
-#include <stdlib.h>
+#include "libps.h"
 #include <unistd.h>
 
 static int		help_make_move(t_push_swap *self, char const *action)
@@ -63,11 +63,7 @@ static int		make_move(t_push_swap *self, char const *action)
 	}
 	if (self->visualize)
 		psw_show_stacks(self);
-	if (self->step)
-	{
-		usleep(200000);
-		system("clear");
-	}
+	clear_if_step(self);
 	return (OK);
 }
 

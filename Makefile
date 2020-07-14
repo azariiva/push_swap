@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/12 01:02:33 by blinnea           #+#    #+#              #
-#    Updated: 2020/07/10 20:14:51 by blinnea          ###   ########.fr        #
+#    Updated: 2020/07/14 14:28:39 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LPS_H =		include/libps.h
 PSW_H =		include/libps_push_swap.h
 STK_H =		include/libps_stack.h
 
-ALL_H = $(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
+ALL_H =		$(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
 
 # **************************************************************************** #
 #                                 FILENAMES                                    #
@@ -47,7 +47,7 @@ ALL_H = $(LFT_H) $(LPS_H) $(PSW_H) $(STK_H) $(GNL_H)
 PSFILES =	$(shell find src/libps -name '*.c')
 PSOFILES =	$(addprefix obj/, $(PSFILES:src/libps/%.c=%.o))
 
-.PHONY: dir $(LFT) clean fclean re all
+.PHONY: dir $(LFT) clean fclean re all test
 
 all: dir checker push_swap
 	@echo "\n> $(GREEN)push_swap & checker were created$(DEFAULT)"
