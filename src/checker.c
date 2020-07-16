@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 11:11:14 by blinnea           #+#    #+#             */
-/*   Updated: 2020/07/14 12:49:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/07/16 15:54:43 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,28 @@ int			parse_av(int ac, char **av, char vcqs[4])
 	return (0);
 }
 
-int			main(int ac, char **av)
+t_push_swap	*init_ps(int ac, char **av)
 {
 	t_push_swap	*ps;
 	char		vcqs[4];
 
-	if (ac == 1)
-		return (0);
 	if (parse_av(ac, av, vcqs) == -1)
-		return (0);
+		exit(0);
 	if (!(ps = new_push_swap(av + g_optind, ac - g_optind, vcqs)))
 		throw_error();
+	if (!ps->a->size)
+	{
+		ps->destructor(&ps);
+		exit(0);
+	}
+	return (ps);
+}
+
+int			main(int ac, char **av)
+{
+	t_push_swap	*ps;
+
+	ps = init_ps(ac, av);
 	if (ps->visualize)
 	{
 		ps->show_stacks(ps);
